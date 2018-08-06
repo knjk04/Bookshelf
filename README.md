@@ -7,4 +7,4 @@
   added to the .gitignore of this project, so you will need to create your own
   raw directory and your own api_key.txt file).
   
-  The file should ju
+  The file should only contain your API key without quotes or any blank lines.

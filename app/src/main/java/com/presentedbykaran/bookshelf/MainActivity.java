@@ -22,7 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -63,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
                 Log.d(TAG, "You searched for: " + s);
                 search(s);
+
+//                List<Book> books = Arrays.asList(mBooks);
+
+                Intent intent = new Intent(MainActivity.this,
+                        SearchResultsActivity.class);
+//                intent.putExtra("BookList", (Serializable) books);
+                startActivity(intent);
+
                 return false;
             }
 
@@ -155,11 +165,18 @@ public class MainActivity extends AppCompatActivity {
                 book.setRating(0);
             }
 
+            Uri thumbnailUri;
             if (volumeInfo.has("imageLinks")) {
 //            String imageThumbnail = volumeInfo.getString("image")
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
-            } else Log.e(TAG, "No imageLinks for index " + i);
+//                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
+                thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
+                book.setImage(thumbnailUri);
+            } else {
+                Log.e(TAG, "No imageLinks for index " + i);
+                thumbnailUri = null;
+            }
+//            book.setImage(thumbnailUri);
 
             books[i] = book;
 //                mBooks[i] = book;
