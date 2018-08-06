@@ -47,15 +47,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        search();
+
+//        mAuthor = findViewById(R.id.authorText);
+//        mTitle = findViewById(R.id.titleText);
+        imageView = findViewById(R.id.imageView);
+//
+//        mAuthor.setText(mBooks[0].getBookTitle());
+//        mTitle.setText(mBooks[0].getAuthors(0));
+
+
+        mSearchView = findViewById(R.id.search);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d(TAG, "You searched for: " + s);
+                search(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
+    private void search(String searchQuery) {
         String apiKey = readAPIKey();
+//        String volumesWithTxt = "q=flowers";
+//        String author = "inauthor:keyes";
+//        String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
+//                author + "&key=" + apiKey;
 
-        String volumesWithTxt = "q=flowers";
-        String author = "inauthor:keyes";
-
+        String volumesWithTxt = "q=" + searchQuery;
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
-                author + "&key=" + apiKey;
-
-//        Log.d(TAG, bookURL);
+                "&key=" + apiKey;
 
         if (isNetworkAvailable()) {
 
@@ -92,20 +119,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-//        mSearchView = findViewById(R.id.search);
-//        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "")
-//            }
-//        });
-//        mAuthor = findViewById(R.id.authorText);
-//        mTitle = findViewById(R.id.titleText);
-//        imageView = findViewById(R.id.imageView);
-//
-//        mAuthor.setText(mBooks[0].getBookTitle());
-//        mTitle.setText(mBooks[0].getAuthors(0));
     }
 
     private Book[] getBookDetails(String jsonData) throws JSONException {
@@ -204,10 +217,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "API key: " + data);
 
         return data;
-    }
-
-    public void executeSearch(View view) {
-//        Intent intent = new Intent(this, SearchResultsActivity.class);
-//        startActivity(intent);
     }
 }

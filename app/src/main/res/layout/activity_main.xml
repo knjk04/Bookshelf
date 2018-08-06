@@ -45,15 +45,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="143dp"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="executeSearch"
-            android:text="Button" />
 
     </LinearLayout>
 </layout>

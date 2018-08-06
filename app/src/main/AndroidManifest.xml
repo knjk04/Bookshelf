@@ -30,6 +30,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.presentedbykaran.bookshelf.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>
