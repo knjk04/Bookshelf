@@ -19,30 +19,28 @@ public class Book {
     private double rating;
     private ImageView image;
 
-//    private List<String> authors;
     private String authors = "";
 
     public static final String TAG = Book.class.getSimpleName();
-
-//    public Book() {
-//    }
 
     public Book(Activity activity) {
         findViews(activity);
     }
 
-    private void findViews(Activity activity) {
-        image = activity.findViewById(R.id.imageView);
-    }
-
     public Book(String bookTitle, List<String> authors, double rating, ImageView image,
             Activity activity) {
         this.bookTitle = bookTitle;
-//        this.authors = authors;
+        setAuthors(authors); // to get the comma separated list
         this.rating = rating;
         this.image = image;
 
         findViews(activity);
+    }
+
+
+
+    private void findViews(Activity activity) {
+        image = activity.findViewById(R.id.imageView);
     }
 
     public String getBookTitle() {
@@ -53,18 +51,14 @@ public class Book {
         this.bookTitle = bookTitle;
     }
 
-//    public String getAuthors(int position) {
-//        return authors.get(position);
-//    }
-
     public String getAuthors() {
         return authors;
     }
 
     public void setAuthors(List<String> authors) {
 //        Log.d(TAG, "In setAuthors");
-//        this.authors = authors;
 
+        // Makes a comma separated string if there is more than author
         for (int i = 0; i < authors.size(); i++) {
             if (i > 0) this.authors += ", ";
             this.authors += authors.get(i);

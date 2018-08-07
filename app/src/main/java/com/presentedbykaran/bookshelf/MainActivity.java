@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 book.setRating(rating);
 //            book.setRating(volumeInfo.getDouble("averageRating"));
             } else {
-                Log.e(TAG, "No averageRating for index " + i);
+                Log.d(TAG, "No averageRating for index " + i);
                 book.setRating(0);
             }
 
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
                 book.setImage(thumbnailUri);
             } else {
-                Log.e(TAG, "No imageLinks for index " + i);
+                Log.d(TAG, "No imageLinks for index " + i);
                 thumbnailUri = null;
             }
 //            book.setImage(thumbnailUri);
