@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,10 +15,10 @@ import java.util.List;
  */
 
 // Class to store book data
-public class Book {
+public class Book implements Serializable {
     private String bookTitle;
     private double rating;
-    private ImageView image;
+//    private ImageView image;
 
     private String authors = "By ";
 
@@ -32,7 +33,7 @@ public class Book {
         this.bookTitle = bookTitle;
         setAuthors(authors); // to get the comma separated list
         this.rating = rating;
-        this.image = image;
+//        this.image = image;
 
         findViews(activity);
     }
@@ -40,7 +41,7 @@ public class Book {
 
 
     private void findViews(Activity activity) {
-        image = activity.findViewById(R.id.imageView);
+//        image = activity.findViewById(R.id.imageView);
     }
 
     public String getBookTitle() {
@@ -75,13 +76,13 @@ public class Book {
         this.rating = rating;
     }
 
-    public ImageView getImage() {
-        return image;
-    }
-
-    public void setImage(Uri linkToImage) {
-        if (linkToImage == null) image.setImageResource(R.drawable.clear_white_24dp);
-        else image.setImageURI(linkToImage);
-    }
+//    public ImageView getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(Uri linkToImage) {
+//        if (linkToImage == null) image.setImageResource(R.drawable.clear_white_24dp);
+//        else image.setImageURI(linkToImage);
+//    }
 
 }

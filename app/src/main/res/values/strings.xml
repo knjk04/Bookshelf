@@ -8,4 +8,5 @@
     <string name="no_connection">No internet connection. Please check your internet connection
                                  and try again</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="buttonTextMainScreen">Go</string>
 </resources>

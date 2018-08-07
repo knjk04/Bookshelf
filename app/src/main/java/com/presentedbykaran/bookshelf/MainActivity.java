@@ -1,4 +1,5 @@
 package com.presentedbykaran.bookshelf;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -37,12 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private SearchView mSearchView;
-    private ImageView imageView;
-    private TextView mTitle;
-    private TextView mAuthor;
-
-//    private Book mBook;
-    private Book[] mBooks;
+    private BookList bookList;
+    private String searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        mAuthor = findViewById(R.id.authorText);
 //        mTitle = findViewById(R.id.titleText);
-        imageView = findViewById(R.id.imageView);
+//        imageView = findViewById(R.id.imageView);
 //
 //        mAuthor.setText(mBooks[0].getBookTitle());
 //        mTitle.setText(mBooks[0].getAuthors(0));
@@ -62,16 +59,18 @@ public class MainActivity extends AppCompatActivity {
         mSearchView = findViewById(R.id.search);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                Log.d(TAG, "You searched for: " + s);
-                search(s);
+            public boolean onQueryTextSubmit(String query) {
+                searchQuery = query;
+                Log.d(TAG, "You searched for: " + searchQuery);
+                search(searchQuery);
 
-//                List<Book> books = Arrays.asList(mBooks);
-
+//                List<Book> books = Arrays.asList(bookList.getBooks());
 //                Intent intent = new Intent(MainActivity.this,
 //                        SearchResultsActivity.class);
-////                intent.putExtra("BookList", (Serializable) books);
+//                intent.putExtra("BookList", (Serializable) books);
+//
 //                startActivity(intent);
+
 
                 return false;
             }
@@ -116,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            mBooks = getBookDetails(jsonData);
 //                            getBookDetails(jsonData);
+//                            mBooks = getBookDetails(jsonData);
+                            bookList = parseBookListData(jsonData);
                         } else {
                             raiseError();
                         }
@@ -129,6 +129,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private BookList parseBookListData (String jsonData) throws JSONException {
+        BookList bookList = new BookList();
+        bookList.setBooks(getBookDetails(jsonData));
+        return bookList;
     }
 
     private Book[] getBookDetails(String jsonData) throws JSONException {
@@ -155,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
             if (volumeInfo.has("authors")) {
                 JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
                 String[] arrAuthors = new String[jsonAuthors.length()];
-                for (int j = 0; j < jsonAuthors.length(); j++) arrAuthors[j] = jsonAuthors.getString(j);
+                for (int j = 0; j < jsonAuthors.length(); j++)
+                    arrAuthors[j] = jsonAuthors.getString(j);
                 book.setAuthors(Arrays.asList(arrAuthors));
             } else {
                 book.setAuthors(Arrays.asList("No authors found"));
@@ -178,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
 //                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
                 thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
-                book.setImage(thumbnailUri);
+//                book.setImage(thumbnailUri);
             } else {
                 Log.d(TAG, "No imageLinks for index " + i);
                 thumbnailUri = null;
@@ -245,10 +252,18 @@ public class MainActivity extends AppCompatActivity {
 
     // On Click Listener
     public void testRunActivity(View view) {
-        Intent intent = new Intent(MainActivity.this,
-                SearchResultsActivity.class);
-//                intent.putExtra("BookList", (Serializable) books);
-        startActivity(intent);
+        if (searchQuery == null) {
+            Log.d(TAG, "Search query is null");
+            Toast.makeText(this, "Please search for something", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            List<Book> books = Arrays.asList(bookList.getBooks());
+            Intent intent = new Intent(MainActivity.this,
+                    SearchResultsActivity.class);
+            intent.putExtra("BookList", (Serializable) books);
+
+            startActivity(intent);
+        }
     }
 
 }

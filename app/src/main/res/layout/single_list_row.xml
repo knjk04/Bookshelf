@@ -45,8 +45,17 @@
             android:layout_alignStart="@+id/bookTitle"
             android:layout_below="@+id/bookTitle"
             android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="@{String.valueOf(book.authors)}"
             tools:text="J.K. Rowling" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/authorTextView"
+            android:background="?android:attr/listDivider" />
 
     </RelativeLayout>
 </layout>
