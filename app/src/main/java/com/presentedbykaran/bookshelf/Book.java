@@ -19,7 +19,7 @@ public class Book {
     private double rating;
     private ImageView image;
 
-    private String authors = "";
+    private String authors = "By ";
 
     public static final String TAG = Book.class.getSimpleName();
 
