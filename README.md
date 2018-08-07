@@ -10,9 +10,9 @@
   This app has been tested on a Pixel XL running Android Pie (API 28).
   
 # Features
-	- Search for a book title and get a list of the top results showing the book
-	  title and the corresponding author
-	- Voice search
+  - Search for a book title and get a list of the top results showing the book
+	title and the corresponding author
+  - Voice search
   
 # Setup
   Add your Google Books API key into /app/src/main/res/raw/api_key.txt (it was 

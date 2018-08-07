@@ -37,6 +37,7 @@ public class SearchableActivity extends AppCompatActivity {
     public static final String TAG = SearchableActivity.class.getSimpleName();
     private BookList bookList;
     private String searchQuery;
+    private boolean isAvailable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class SearchableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             searchQuery = intent.getStringExtra(SearchManager.QUERY);
-            searchFor(searchQuery);
+
+            if (isNetworkAvailable()) searchFor(searchQuery);
         }
     }
 
@@ -54,10 +56,7 @@ public class SearchableActivity extends AppCompatActivity {
         Toast.makeText(this, "You searched for: " + query, Toast.LENGTH_SHORT).show();
 
         String apiKey = readAPIKey();
-//        String volumesWithTxt = "q=flowers";
 //        String author = "inauthor:keyes";
-//        String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
-//                author + "&key=" + apiKey;
 
         String volumesWithTxt = "q=" + query;
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
@@ -105,14 +104,9 @@ public class SearchableActivity extends AppCompatActivity {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
-        boolean isAvailable = false;
+        isAvailable = false;
         if (networkInfo != null && networkInfo.isConnected()) isAvailable = true;
-        else {
-//            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_LONG).show();
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout), R.string.no_connection,
-                    Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
+        else noInternetConnectionSnackbar();
         return isAvailable;
     }
 
@@ -128,13 +122,10 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private Book[] getBookDetails(String jsonData) throws JSONException {
-//        private void getBookDetails(String jsonData) throws JSONException {
         JSONObject details = new JSONObject(jsonData);
         JSONArray items = details.getJSONArray("items");
 
         Book[] books = new Book[items.length()];
-//        books = new Book[items.length()];
-//            mBooks = new Book[items.length()];
 
         for (int i = 0; i < books.length; i++) {
 //            for (int i = 0; i < mBooks.length; i++) {
@@ -183,16 +174,7 @@ public class SearchableActivity extends AppCompatActivity {
 //            book.setImage(thumbnailUri);
 
             books[i] = book;
-//                mBooks[i] = book;
         }
-
-//        Log.d(TAG, "Book title 1: " + books[0].getBookTitle());
-//        Log.d(TAG, "Author of title 1: " + books[0].getAuthors(0));
-//        Log.d(TAG, "Rating of title 1: " + books[0].getBookTitle());
-
-//        mAuthor.setText(books[0].getBookTitle());
-//        mTitle.setText(books[0].getAuthors(0));
-
         return books;
     }
 
@@ -205,23 +187,34 @@ public class SearchableActivity extends AppCompatActivity {
 
         if (inputStream != null) {
             try {
-                // There should be a better way than this
-                while ((data = bufferedReader.readLine()) != null) {
-                    break; // stores api key, so can now break
-                }
+                // There should be a better way than this: do nothing if it isn't null since we only
+                // need the first line and if the file has a line, it is stored in data
+                if ((data = bufferedReader.readLine()) != null) ;
                 inputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        Log.d(TAG, "API key: " + data);
+//        Log.d(TAG, "API key: " + data);
 
         return data;
     }
 
+    private void noInternetConnectionSnackbar() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.searchableLayout),
+                R.string.no_connection, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
     public void executeSearch(View view) {
+        // It shouldn't be since you have to search for something to get here, but just in case
         if (searchQuery == null) return;
+
+        if (!isAvailable) {
+            noInternetConnectionSnackbar();
+            return;
+        }
 
         List<Book> books = Arrays.asList(bookList.getBooks());
         Intent intent = new Intent(this, SearchResultsActivity.class);
