@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
         android:onClick="executeSearch"
-        android:text="Button"
+        android:text="Go"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
