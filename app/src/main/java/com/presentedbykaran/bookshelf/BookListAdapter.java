@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.presentedbykaran.bookshelf.databinding.SingleListRowBinding;
 
+
 import java.util.List;
 
 /**

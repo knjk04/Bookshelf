@@ -68,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
 
 //                List<Book> books = Arrays.asList(mBooks);
 
-                Intent intent = new Intent(MainActivity.this,
-                        SearchResultsActivity.class);
-//                intent.putExtra("BookList", (Serializable) books);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this,
+//                        SearchResultsActivity.class);
+////                intent.putExtra("BookList", (Serializable) books);
+//                startActivity(intent);
 
                 return false;
             }
@@ -145,15 +145,22 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsonBook = items.getJSONObject(i);
             JSONObject volumeInfo = jsonBook.getJSONObject("volumeInfo");
 
-            Book book = new Book();
+//            Book book = new Book();
+            Book book = new Book(this);
+
             if (volumeInfo.has("title"))
                 book.setBookTitle(volumeInfo.getString("title"));
             else Log.d(TAG, "No title for index " + i);
 
-            JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
-            String[] arrAuthors = new String[jsonAuthors.length()];
-            for (int j = 0; j < jsonAuthors.length(); j++) arrAuthors[j] = jsonAuthors.getString(j);
-            book.setAuthors(Arrays.asList(arrAuthors));
+            if (volumeInfo.has("authors")) {
+                JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
+                String[] arrAuthors = new String[jsonAuthors.length()];
+                for (int j = 0; j < jsonAuthors.length(); j++) arrAuthors[j] = jsonAuthors.getString(j);
+                book.setAuthors(Arrays.asList(arrAuthors));
+            } else {
+                book.setAuthors(Arrays.asList("No authors found"));
+                Log.d(TAG, "No authors");
+            }
 
             // Ratings don't work for some reason. It can't find averageRating, so exception thrown
             if (volumeInfo.has("averageRating")) {
@@ -235,4 +242,13 @@ public class MainActivity extends AppCompatActivity {
 
         return data;
     }
+
+    // On Click Listener
+    public void testRunActivity(View view) {
+        Intent intent = new Intent(MainActivity.this,
+                SearchResultsActivity.class);
+//                intent.putExtra("BookList", (Serializable) books);
+        startActivity(intent);
+    }
+
 }

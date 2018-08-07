@@ -43,8 +43,8 @@
             android:layout_alignParentTop="false"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="18dp"
+            android:text="@{String.valueOf(book.authors)}"
             tools:text="J.K. Rowling"/>
-        <!--android:text="@{String.valueOf(book.authors)}"-->
 
     </RelativeLayout>
 </layout>
