@@ -8,52 +8,37 @@
             type="com.presentedbykaran.bookshelf.Book"/>
     </data>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
         tools:context=".MainActivity">
+
 
         <SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:queryHint="Search for book titles"
-            android:voiceSearchMode="showVoiceSearchButton|launchRecognizer">
-
-        </SearchView>
-
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            tools:text="Book title:" />
-
-        <TextView
-            android:id="@+id/authorText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            tools:text="Author :" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="143dp"/>
+            android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"/>
 
         <Button
             android:id="@+id/button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@android:color/white"
             android:onClick="testRunActivity"
-            android:text="@string/buttonTextMainScreen" />
+            android:text="@string/buttonTextMainScreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.693" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>
