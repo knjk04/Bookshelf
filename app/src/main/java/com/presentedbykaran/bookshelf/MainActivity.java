@@ -1,19 +1,16 @@
 package com.presentedbykaran.bookshelf;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,21 +20,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private SearchView mSearchView;
+//    private SearchView mSearchView;
     private BookList bookList;
     private String searchQuery;
 
@@ -45,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+
 
 //        search();
 
@@ -56,214 +51,63 @@ public class MainActivity extends AppCompatActivity {
 //        mTitle.setText(mBooks[0].getAuthors(0));
 
 
-        mSearchView = findViewById(R.id.search);
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchQuery = query;
-                Log.d(TAG, "You searched for: " + searchQuery);
-                search(searchQuery);
-
-//                List<Book> books = Arrays.asList(bookList.getBooks());
-//                Intent intent = new Intent(MainActivity.this,
-//                        SearchResultsActivity.class);
-//                intent.putExtra("BookList", (Serializable) books);
+//        mSearchView = findViewById(R.id.search);
+//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                searchQuery = query;
+//                Log.d(TAG, "You searched for: " + searchQuery);
+//                search(searchQuery);
 //
-//                startActivity(intent);
-
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
+////                List<Book> books = Arrays.asList(bookList.getBooks());
+////                Intent intent = new Intent(MainActivity.this,
+////                        SearchResultsActivity.class);
+////                intent.putExtra("BookList", (Serializable) books);
+////
+////                startActivity(intent);
+//
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            }
+//        });
     }
 
-    private void search(String searchQuery) {
-        String apiKey = readAPIKey();
-//        String volumesWithTxt = "q=flowers";
-//        String author = "inauthor:keyes";
-//        String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
-//                author + "&key=" + apiKey;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
 
-        String volumesWithTxt = "q=" + searchQuery;
-        String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
-                "&key=" + apiKey;
-
-        if (isNetworkAvailable()) {
-
-            // OkHttp asynchronous GET recipe
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url(bookURL)
-                    .build();
-
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG, "In onFailure()");
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
-                        if (response.isSuccessful()) {
-//                            getBookDetails(jsonData);
-//                            mBooks = getBookDetails(jsonData);
-                            bookList = parseBookListData(jsonData);
-                        } else {
-                            raiseError();
-                        }
-                    } catch (IOException e) {
-                        Log.e(TAG, "IO Exception caught: ", e);
-                    } catch (JSONException e) {
-                        Log.e(TAG, "JSON Exception caught:", e);
-                    }
-                }
-            });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.searchBtn:
+                onSearchRequested();
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    private BookList parseBookListData (String jsonData) throws JSONException {
-        BookList bookList = new BookList();
-        bookList.setBooks(getBookDetails(jsonData));
-        return bookList;
-    }
 
-    private Book[] getBookDetails(String jsonData) throws JSONException {
-//        private void getBookDetails(String jsonData) throws JSONException {
-        JSONObject details = new JSONObject(jsonData);
-        JSONArray items = details.getJSONArray("items");
-
-        Book[] books = new Book[items.length()];
-//        books = new Book[items.length()];
-//            mBooks = new Book[items.length()];
-
-        for (int i = 0; i < books.length; i++) {
-//            for (int i = 0; i < mBooks.length; i++) {
-            JSONObject jsonBook = items.getJSONObject(i);
-            JSONObject volumeInfo = jsonBook.getJSONObject("volumeInfo");
-
-//            Book book = new Book();
-            Book book = new Book(this);
-
-            if (volumeInfo.has("title"))
-                book.setBookTitle(volumeInfo.getString("title"));
-            else Log.d(TAG, "No title for index " + i);
-
-            if (volumeInfo.has("authors")) {
-                JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
-                String[] arrAuthors = new String[jsonAuthors.length()];
-                for (int j = 0; j < jsonAuthors.length(); j++)
-                    arrAuthors[j] = jsonAuthors.getString(j);
-                book.setAuthors(Arrays.asList(arrAuthors));
-            } else {
-                book.setAuthors(Arrays.asList("No authors found"));
-                Log.d(TAG, "No authors");
-            }
-
-            // Ratings don't work for some reason. It can't find averageRating, so exception thrown
-            if (volumeInfo.has("averageRating")) {
-                double rating = volumeInfo.getDouble("averageRating");
-                book.setRating(rating);
-//            book.setRating(volumeInfo.getDouble("averageRating"));
-            } else {
-                Log.d(TAG, "No averageRating for index " + i);
-                book.setRating(0);
-            }
-
-            Uri thumbnailUri;
-            if (volumeInfo.has("imageLinks")) {
-//            String imageThumbnail = volumeInfo.getString("image")
-                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-//                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
-                thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
-//                book.setImage(thumbnailUri);
-            } else {
-                Log.d(TAG, "No imageLinks for index " + i);
-                thumbnailUri = null;
-            }
-//            book.setImage(thumbnailUri);
-
-            books[i] = book;
-//                mBooks[i] = book;
-        }
-
-//        Log.d(TAG, "Book title 1: " + books[0].getBookTitle());
-//        Log.d(TAG, "Author of title 1: " + books[0].getAuthors(0));
-//        Log.d(TAG, "Rating of title 1: " + books[0].getBookTitle());
-
-//        mAuthor.setText(books[0].getBookTitle());
-//        mTitle.setText(books[0].getAuthors(0));
-
-        return books;
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-        boolean isAvailable = false;
-        if (networkInfo != null && networkInfo.isConnected()) isAvailable = true;
-        else {
-//            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_LONG).show();
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout), R.string.no_connection,
-                    Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-        return isAvailable;
-    }
-
-    private void raiseError() {
-        AlertDialogFragment dialogFragment = new AlertDialogFragment();
-        dialogFragment.show(getFragmentManager(), "error dialog");
-    }
-
-    // This method is for reading the API key and should be listed in the gitignore file.
-    // This allows you to store your secret API key safely
-    private String readAPIKey() {
-        String data = "";
-        InputStream inputStream = this.getResources().openRawResource(R.raw.api_key);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-        if (inputStream != null) {
-            try {
-                // There should be a better way than this
-                while ((data = bufferedReader.readLine()) != null) {
-                    break; // stores api key, so can now break
-                }
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Log.d(TAG, "API key: " + data);
-
-        return data;
-    }
-
-    // On Click Listener
-    public void testRunActivity(View view) {
-        if (searchQuery == null) {
-            Log.d(TAG, "Search query is null");
-            Toast.makeText(this, "Please search for something", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            List<Book> books = Arrays.asList(bookList.getBooks());
-            Intent intent = new Intent(MainActivity.this,
-                    SearchResultsActivity.class);
-            intent.putExtra("BookList", (Serializable) books);
-
-            startActivity(intent);
-        }
-    }
+//    // On Click Listener
+//    public void testRunActivity(View view) {
+//        if (searchQuery == null) {
+//            Log.d(TAG, "Search query is null");
+//            Toast.makeText(this, "Please search for something", Toast.LENGTH_SHORT).show();
+//            return;
+//        } else {
+//            List<Book> books = Arrays.asList(bookList.getBooks());
+//            Intent intent = new Intent(MainActivity.this,
+//                    SearchResultsActivity.class);
+//            intent.putExtra("BookList", (Serializable) books);
+//
+//            startActivity(intent);
+//        }
+//    }
 
 }
