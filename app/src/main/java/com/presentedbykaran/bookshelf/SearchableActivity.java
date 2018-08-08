@@ -62,6 +62,8 @@ public class SearchableActivity extends AppCompatActivity {
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
                 "&key=" + apiKey;
 
+        Log.d(TAG, bookURL);
+
         if (isNetworkAvailable()) {
 
             // OkHttp asynchronous GET recipe
@@ -128,11 +130,9 @@ public class SearchableActivity extends AppCompatActivity {
         Book[] books = new Book[items.length()];
 
         for (int i = 0; i < books.length; i++) {
-//            for (int i = 0; i < mBooks.length; i++) {
             JSONObject jsonBook = items.getJSONObject(i);
             JSONObject volumeInfo = jsonBook.getJSONObject("volumeInfo");
 
-//            Book book = new Book();
             Book book = new Book(this);
 
             if (volumeInfo.has("title"))
@@ -154,7 +154,6 @@ public class SearchableActivity extends AppCompatActivity {
             if (volumeInfo.has("averageRating")) {
                 double rating = volumeInfo.getDouble("averageRating");
                 book.setRating(rating);
-//            book.setRating(volumeInfo.getDouble("averageRating"));
             } else {
                 Log.d(TAG, "No averageRating for index " + i);
                 book.setRating(0);

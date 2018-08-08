@@ -20,3 +20,7 @@
   raw directory and your own api_key.txt file).
   
   The file should only contain your API key without quotes or any blank lines.
+
+# Attributions
+  - Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from 
+    www.flaticon.com
