@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="book"
+            type="com.presentedbykaran.bookshelf.Book" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/bookListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/bookCoverImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="57dp"
+            android:paddingLeft="8dp"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/bookCoverImageView"
+            android:layout_marginStart="18dp"
+            android:paddingBottom="8dp"
+            android:text="@{String.valueOf(book.bookTitle)}"
+            tools:text="Harry Potter and the Deathly Hallows" />
+
+
+        <TextView
+            android:id="@+id/authorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/bookTitle"
+            android:layout_below="@+id/bookTitle"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@{String.valueOf(book.authors)}"
+            tools:text="J.K. Rowling" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/authorTextView"
+            android:background="?android:attr/listDivider" />
+
+    </RelativeLayout>
+</layout>
