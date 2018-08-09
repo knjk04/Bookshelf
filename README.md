@@ -1,5 +1,8 @@
 # Bookshelf
-  ![Bookshelf logo](/repoMedia/bookshelf_icon_512.png)
+  <p align="center">
+	<img src="/repoMedia/bookshelf_icon_512.png" alt="App icon"/>
+  </p>
+  
   Android app that uses the Google Books API to let you search for book titles 
   and/or authors, which you can save to a wishlist (WIP)
 
