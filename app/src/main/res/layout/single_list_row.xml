@@ -19,7 +19,7 @@
         <RelativeLayout
             android:id="@+id/bookListView"
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="match_parent">
 
 
             <ImageView
@@ -47,11 +47,11 @@
 
 
             <TextView
-                android:id="@+id/authorTextView"
+                android:id="@+id/authorsTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/ratingTxt"
                 android:layout_alignStart="@+id/bookTitleTxt"
-                android:layout_below="@+id/bookTitleTxt"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:text="@{String.valueOf(book.authors)}"
@@ -64,9 +64,27 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/bookTitleTxt"
-                android:layout_marginBottom="39dp"
+                android:layout_marginBottom="25dp"
                 android:text="@{String.valueOf(book.rating)}"
-                tools:text="Rating: 4.3" />
+                tools:text="Rating on Google Books: 4.3" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="114dp"
+                android:layout_height="13dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/ratingTxt"
+                android:layout_marginTop="-25dp"
+                card_view:srcCompat="@drawable/powered_by_google_on_white" />
+
+            <TextView
+                android:id="@+id/ratingCountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/authorsTxt"
+                android:layout_toStartOf="@+id/bookCoverImageView"
+                android:text="@{String.valueOf(book.ratingsCount)}"
+                tools:text="(20000 ratings)" />
 
         </RelativeLayout>
 

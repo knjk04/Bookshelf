@@ -62,7 +62,7 @@ public class SearchableActivity extends AppCompatActivity {
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
                 "&key=" + apiKey;
 
-        Log.d(TAG, bookURL);
+//        Log.d(TAG, bookURL);
 
         if (isNetworkAvailable()) {
 
@@ -137,7 +137,10 @@ public class SearchableActivity extends AppCompatActivity {
 
             if (volumeInfo.has("title"))
                 book.setBookTitle(volumeInfo.getString("title"));
-            else Log.d(TAG, "No title for index " + i);
+            else {
+                // Do not set a generic title. There should really be a title at the very least
+                Log.d(TAG, "No title for index " + i);
+            }
 
             if (volumeInfo.has("authors")) {
                 JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
@@ -158,6 +161,15 @@ public class SearchableActivity extends AppCompatActivity {
                 Log.d(TAG, "No averageRating for index " + i);
                 book.setRating(0);
             }
+
+            if (volumeInfo.has("ratingsCount")) {
+                int ratingsCount = volumeInfo.getInt("ratingsCount");
+                book.setRatingsCount(ratingsCount);
+            } else {
+                Log.d(TAG,"No ratingsCount for index " + i);
+                book.setRatingsCount(0);
+            }
+
 
             Uri thumbnailUri;
             if (volumeInfo.has("imageLinks")) {

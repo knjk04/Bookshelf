@@ -17,13 +17,13 @@ import java.util.List;
 // Class to store book data
 public class Book implements Serializable {
     private String bookTitle;
-
-//    private double rating;
+    private String authors = "By ";
     private String rating = "Rating on Google Books: ";
-
+    private String ratingsCount = "(";
 //    private ImageView image;
 
-    private String authors = "By ";
+    private static final String RATING_COUNT_SUFFIX = " ratings)";
+
 
     public static final String TAG = Book.class.getSimpleName();
 
@@ -41,11 +41,12 @@ public class Book implements Serializable {
 //        findViews(activity);
 //    }
 
-    public Book(String bookTitle, List<String> authors, double rating, ImageView image,
-                Activity activity) {
+    public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
+                ImageView image, Activity activity) {
         this.bookTitle = bookTitle;
         setAuthors(authors); // to get the comma separated list
         this.rating += rating;
+        this.ratingsCount += ratingsCount + RATING_COUNT_SUFFIX;
 //        this.image = image;
 
         findViews(activity);
@@ -90,6 +91,14 @@ public class Book implements Serializable {
 
     public void setRating(double rating) {
         this.rating += rating;
+    }
+
+    public String getRatingsCount() {
+        return ratingsCount;
+    }
+
+    public void setRatingsCount(int ratingsCount) {
+        this.ratingsCount += ratingsCount + RATING_COUNT_SUFFIX;
     }
 
 //    public ImageView getImage() {

@@ -1,4 +1,5 @@
 
+
 # Bookshelf
   Android app that uses the Google Books API to let you search for book titles 
   and/or authors, which you can save to a wishlist (WIP)
@@ -12,7 +13,9 @@
   
 # Features
   - Search for a book title and get a list of the top results showing the book
-	title, the corresponding author and the rating of the book on Google Books
+	title, the corresponding author, the rating of the book on Google Books and
+	the number of ratings
+	
   - Voice search
   
 # Setup
