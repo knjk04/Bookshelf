@@ -20,6 +20,8 @@
 	
   - Voice search
   
+  And more on its way!
+  
 # Setup
   Add your Google Books API key into /app/src/main/res/raw/api_key.txt (it was 
   added to the .gitignore of this project, so you will need to create your own

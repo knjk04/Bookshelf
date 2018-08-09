@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class Book implements Serializable {
     private String authors = "By ";
     private String rating = "Rating on Google Books: ";
     private String ratingsCount = "(";
-//    private ImageView image;
+    private ImageView image;
 
     private static final String RATING_COUNT_SUFFIX = " ratings)";
 
@@ -31,18 +32,10 @@ public class Book implements Serializable {
         findViews(activity);
     }
 
-//    public Book(String bookTitle, List<String> authors, double rating, ImageView image,
-//            Activity activity) {
-//        this.bookTitle = bookTitle;
-//        setAuthors(authors); // to get the comma separated list
-//        this.rating = rating;
-////        this.image = image;
-//
-//        findViews(activity);
-//    }
-
+//    public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
+//                ImageView image, Activity activity) {
     public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
-                ImageView image, Activity activity) {
+                URL imageURL, Activity activity) {
         this.bookTitle = bookTitle;
         setAuthors(authors); // to get the comma separated list
         this.rating += rating;
