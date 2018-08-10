@@ -28,11 +28,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-//        Uri uri = Uri.parse("https://raw.githubusercontent.com/facebook/fresco/master/docs/static/logo.png");
-//        Uri uri = Uri.parse("https://i.imgur.com/6zDqjm8.jpg");
-        Uri uri = Uri.parse("https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api");
-        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
-        draweeView.setImageURI(uri);
+//        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+//        Uri uri = Uri.parse(urlStr);
+//        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
+//        draweeView.setImageURI(uri);
     }
 
 

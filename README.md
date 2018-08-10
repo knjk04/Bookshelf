@@ -29,6 +29,11 @@
   
   The file should only contain your API key without quotes or any blank lines.
 
+# Libraries used
+  - [OkHttp](https://github.com/square/okhttp) by Square
+  
+  - [Fresco](https://github.com/facebook/fresco) by Facebook
+
 # Attributions
   - Search functionality powered by [Google Books API](https://developers.google.com/books/)
 

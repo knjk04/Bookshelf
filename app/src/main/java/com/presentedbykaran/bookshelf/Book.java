@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.io.Serializable;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 
@@ -21,11 +24,11 @@ public class Book implements Serializable {
     private String authors = "By ";
     private String rating = "Rating on Google Books: ";
     private String ratingsCount = "(";
-    private ImageView image;
+
+    private String strImageURL;
+    private SimpleDraweeView draweeView;
 
     private static final String RATING_COUNT_SUFFIX = " ratings)";
-
-
     public static final String TAG = Book.class.getSimpleName();
 
     public Book(Activity activity) {
@@ -34,20 +37,29 @@ public class Book implements Serializable {
 
 //    public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
 //                ImageView image, Activity activity) {
+
     public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
-                URL imageURL, Activity activity) {
+                String strImageURL, Activity activity) {
         this.bookTitle = bookTitle;
         setAuthors(authors); // to get the comma separated list
         this.rating += rating;
         this.ratingsCount += ratingsCount + RATING_COUNT_SUFFIX;
-//        this.image = image;
+
+//        this.strImageURL = strImageURL;
+        changeHttpToHttps(strImageURL);
 
         findViews(activity);
+//        setImage(strImageURL);
     }
+
+//    private void setImage(String strImageURL) {
+//        Uri uri = Uri.parse(strImageURL);
+//        draweeView.setImageURI(uri);
+//    }
 
 
     private void findViews(Activity activity) {
-//        image = activity.findViewById(R.id.imageView);
+        draweeView = activity.findViewById(R.id.bookCoverDrawee);
     }
 
     public String getBookTitle() {
@@ -103,4 +115,21 @@ public class Book implements Serializable {
 //        else image.setImageURI(linkToImage);
 //    }
 
+    public String getStrImageURL() {
+        return strImageURL;
+    }
+
+    public void setStrImageURL(String strImageURL) {
+//        this.strImageURL = strImageURL;
+//        setImage(strImageURL);
+
+        changeHttpToHttps(strImageURL);
+    }
+
+    // This method converts a http link to a https link
+    // This is needed in order to use Fresco to set the image. It won't work with a regular http link
+    private void changeHttpToHttps(String strImageURL) {
+        this.strImageURL = strImageURL.replace("http","https");
+        Log.d(TAG, "strImageURL: " + this.strImageURL);
+    }
 }

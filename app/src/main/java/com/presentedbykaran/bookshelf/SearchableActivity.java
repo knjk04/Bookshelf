@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.presentedbykaran.bookshelf.R;
 
 import org.json.JSONArray;
@@ -39,9 +41,14 @@ public class SearchableActivity extends AppCompatActivity {
     private String searchQuery;
     private boolean isAvailable = false;
 
+    SimpleDraweeView draweeView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        Fresco.initialize(this);
+
         setContentView(R.layout.activity_searchable);
 
         Intent intent = getIntent();
@@ -50,6 +57,8 @@ public class SearchableActivity extends AppCompatActivity {
 
             if (isNetworkAvailable()) searchFor(searchQuery);
         }
+
+//        draweeView = findViewById(R.id.bookCoverDrawee);
     }
 
     private void searchFor(String query) {
@@ -171,18 +180,28 @@ public class SearchableActivity extends AppCompatActivity {
             }
 
 
-            Uri thumbnailUri;
-            if (volumeInfo.has("imageLinks")) {
-//            String imageThumbnail = volumeInfo.getString("image")
-                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-//                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
-                thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
-//                book.setImage(thumbnailUri);
-            } else {
-                Log.d(TAG, "No imageLinks for index " + i);
-                thumbnailUri = null;
-            }
+//            Uri thumbnailUri;
+//            if (volumeInfo.has("imageLinks")) {
+////            String imageThumbnail = volumeInfo.getString("image")
+//                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+////                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
+//                thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
+////                book.setImage(thumbnailUri);
+//            } else {
+//                Log.d(TAG, "No imageLinks for index " + i);
+//                thumbnailUri = null;
+//            }
 //            book.setImage(thumbnailUri);
+
+            if (volumeInfo.has("imageLinks")) {
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                String strSmallThumbnailURL = imageLinks.getString("smallThumbnail");
+                book.setStrImageURL(strSmallThumbnailURL);
+
+//                Uri uri = Uri.parse(strSmallThumbnailURL);
+//                SimpleDraweeView draweeView = findViewById(R.id.bookCoverDrawee);
+//                draweeView.setImageURI(uri);
+            }
 
             books[i] = book;
         }
@@ -220,7 +239,10 @@ public class SearchableActivity extends AppCompatActivity {
 
     public void executeSearch(View view) {
         // It shouldn't be since you have to search for something to get here, but just in case
-        if (searchQuery == null) return;
+        if (searchQuery == null) {
+            Log.d(TAG, "Search query was null");
+            return;
+        }
 
         if (!isAvailable) {
             noInternetConnectionSnackbar();

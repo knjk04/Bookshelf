@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,16 +22,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <ImageView
-                android:id="@+id/bookCoverImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/bookCoverDrawee"
+                android:layout_width="53dp"
+                android:layout_height="67dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/bookTitleTxt"
-                android:layout_marginEnd="35dp"
-                android:paddingLeft="8dp"
-                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+                android:paddingStart="8dp"
+                fresco:placeholderImage="@android:drawable/ic_menu_close_clear_cancel" />
+            <!--fresco:placeholderImage="@{String.valueOf(book.strImageURL)" />-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/bookCoverImageView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignTop="@+id/bookTitleTxt"-->
+            <!--android:layout_marginEnd="35dp"-->
+            <!--android:paddingLeft="8dp"-->
+            <!--app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />-->
 
             <TextView
                 android:id="@+id/bookTitleTxt"
@@ -68,21 +78,21 @@
                 android:text="@{String.valueOf(book.rating)}"
                 tools:text="Rating on Google Books: 4.3" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="114dp"
-                android:layout_height="13dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/ratingTxt"
-                android:layout_marginTop="-25dp"
-                card_view:srcCompat="@drawable/powered_by_google_on_white" />
+            <!--<ImageView-->
+            <!--android:id="@+id/imageView"-->
+            <!--android:layout_width="114dp"-->
+            <!--android:layout_height="13dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@+id/ratingTxt"-->
+            <!--android:layout_marginTop="-25dp"-->
+            <!--card_view:srcCompat="@drawable/powered_by_google_on_white" />-->
 
             <TextView
                 android:id="@+id/ratingCountTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/authorsTxt"
-                android:layout_toStartOf="@+id/bookCoverImageView"
+                android:layout_toStartOf="@+id/bookCoverDrawee"
                 android:text="@{String.valueOf(book.ratingsCount)}"
                 tools:text="(20000 ratings)" />
 
