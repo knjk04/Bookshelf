@@ -3,6 +3,8 @@
 	<img src="/repoMedia/bookshelf_icon_512.png" alt="App icon"/>
   </p>
   
+  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+  
   Android app that uses the Google Books API to let you search for book titles 
   and/or authors, which you can save to a wishlist (WIP)
 
