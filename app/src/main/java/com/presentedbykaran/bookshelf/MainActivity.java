@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,10 +29,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-//        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+        Uri uri = Uri.parse(urlStr);
+        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
+        draweeView.setImageURI(uri);
+
+//        imageView = findViewById(R.id.imageView2);
+//        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
+
+//        imageView = findViewById(R.id.imageView2);
+//        String urlStr = "https://i.imgur.com/DvpvklR.png";
+//        String urlStr = "https://books.google.com/books/content?id=kotPYEqx7kMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
 //        Uri uri = Uri.parse(urlStr);
-//        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
-//        draweeView.setImageURI(uri);
+//        Picasso.get().load(uri).into(imageView);
+
     }
 
 

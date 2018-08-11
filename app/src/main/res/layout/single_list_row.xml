@@ -24,7 +24,7 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/bookCoverDrawee"
-                android:layout_width="53dp"
+                android:layout_width="56dp"
                 android:layout_height="67dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/bookTitleTxt"
@@ -33,14 +33,14 @@
             <!--fresco:placeholderImage="@{String.valueOf(book.strImageURL)" />-->
 
             <!--<ImageView-->
-            <!--android:id="@+id/bookCoverImageView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignTop="@+id/bookTitleTxt"-->
-            <!--android:layout_marginEnd="35dp"-->
-            <!--android:paddingLeft="8dp"-->
-            <!--app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />-->
+                <!--android:id="@+id/bookCoverImageView"-->
+                <!--android:layout_width="73dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginEnd="20dp"-->
+                <!--android:paddingLeft="8dp"-->
+                <!--app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />-->
 
             <TextView
                 android:id="@+id/bookTitleTxt"
@@ -60,8 +60,8 @@
                 android:id="@+id/authorsTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/ratingTxt"
                 android:layout_alignStart="@+id/bookTitleTxt"
+                android:layout_centerVertical="true"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:text="@{String.valueOf(book.authors)}"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/bookTitleTxt"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="13dp"
                 android:text="@{String.valueOf(book.rating)}"
                 tools:text="Rating on Google Books: 4.3" />
 
@@ -91,8 +91,9 @@
                 android:id="@+id/ratingCountTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/authorsTxt"
-                android:layout_toStartOf="@+id/bookCoverDrawee"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ratingTxt"
+                android:layout_marginEnd="45dp"
                 android:text="@{String.valueOf(book.ratingsCount)}"
                 tools:text="(20000 ratings)" />
 

@@ -59,7 +59,7 @@ public class Book implements Serializable {
 
 
     private void findViews(Activity activity) {
-        draweeView = activity.findViewById(R.id.bookCoverDrawee);
+//        draweeView = activity.findViewById(R.id.bookCoverDrawee);
     }
 
     public String getBookTitle() {
@@ -128,6 +128,9 @@ public class Book implements Serializable {
 
     // This method converts a http link to a https link
     // This is needed in order to use Fresco to set the image. It won't work with a regular http link
+
+    // One problem with this is that it will replace 'http' with 'https' regardless of where 'http'
+    // appears in the URL
     private void changeHttpToHttps(String strImageURL) {
         this.strImageURL = strImageURL.replace("http","https");
         Log.d(TAG, "strImageURL: " + this.strImageURL);

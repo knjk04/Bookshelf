@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 import com.presentedbykaran.bookshelf.databinding.SingleListRowBinding;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -31,7 +34,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         this.bookList = bookList;
         this.mContext = mContext;
 
-//        Fresco.initialize(mContext);
+        Fresco.initialize(mContext);
     }
 
 //    @NonNull
@@ -56,7 +59,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
                         false);
 
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.activity_search_results, viewGroup, false);
+//        View view = inflater.inflate(R.layout.activity_search_results, viewGroup, false);
+        View view = inflater.inflate(R.layout.single_list_row, viewGroup, false);
 
 
         return new ViewHolder(binding, view);
@@ -68,18 +72,27 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         viewHolder.singleListRowBinding.setBook(book);
 
         Log.d(TAG, "Image URL: " + book.getStrImageURL());
-        Uri uri = Uri.parse(book.getStrImageURL());
 
-//        if (viewHolder.draweeView == null) {
-//            Log.d(TAG, "draweeview is null for index " + i);
-//        }
-//        else
-            viewHolder.draweeView.setImageURI(uri);
+        if (book.getStrImageURL() != null) {
+//            String sampleUrl = "https://i.imgur.com/tGbaZCY.jpg%22";
+//            Uri uri = Uri.parse(book.getStrImageURL());
+//            viewHolder.draweeView.setImageURI(uri);
+
+//            Uri uri = Uri.parse(book.getStrImageURL());
+            Uri uri = Uri.parse("https://i.imgur.com/tGbaZCY.jpg%22");
+            ImageRequest request = ImageRequest.fromUri(uri);
+            DraweeController controller = Fresco.newDraweeControllerBuilder().setImageRequest(request).setOldController( viewHolder.draweeView.getController()).build();
+            viewHolder.draweeView.setController(controller);
+
+        }
+
 
 //        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
 //        Uri uri = Uri.parse(urlStr);
 //        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
 //        draweeView.setImageURI(uri);
+
+//        Picasso.get().load(uri).into(viewHolder.imageView);
     }
 
     @Override
@@ -90,6 +103,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public SingleListRowBinding singleListRowBinding;
+
         public SimpleDraweeView draweeView;
 //        public ImageView imageView;
 
@@ -104,6 +118,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
 //            Fresco.initialize(mContext);
             draweeView = view.findViewById(R.id.bookCoverDrawee);
+
+//            imageView = view.findViewById(R.id.bookCoverImageView);
         }
     }
 }

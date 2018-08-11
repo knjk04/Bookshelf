@@ -28,7 +28,9 @@ public class SearchResultsActivity extends Activity {
                 R.layout.activity_search_results);
 
 //        bookListAdapter = new BookListAdapter(getBookData(), this);
-        Fresco.initialize(this);
+
+//        Fresco.initialize(this);
+
         bookListAdapter = new BookListAdapter(bookList, this);
 
         activitySearchResultsBinding.searchResultsRecycler.setAdapter(bookListAdapter);
