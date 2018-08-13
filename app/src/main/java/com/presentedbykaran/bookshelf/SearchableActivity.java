@@ -211,6 +211,8 @@ public class SearchableActivity extends AppCompatActivity {
     // This method is for reading the API key and should be listed in the gitignore file.
     // This allows you to store your secret API key safely
     private String readAPIKey() {
+        Log.d(TAG, "Key in API enum: " + API.key);
+
         String data = "";
         InputStream inputStream = this.getResources().openRawResource(R.raw.api_key);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
