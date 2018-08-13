@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity {

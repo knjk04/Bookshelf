@@ -3,7 +3,7 @@
 	<img src="/repoMedia/bookshelf_icon_512.png" alt="App icon"/>
   </p>
   
-  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
   
   Android app that uses the Google Books API to let you search for book titles 
   and/or authors, which you can save to a wishlist (WIP)
@@ -35,9 +35,17 @@
   - [OkHttp](https://github.com/square/okhttp) by Square
   
   - [Fresco](https://github.com/facebook/fresco) by Facebook
+  
+  - [Butter Knife](https://github.com/JakeWharton/butterknife) by Jake Wharton
 
 # Attributions
   - Search functionality powered by [Google Books API](https://developers.google.com/books/)
 
   - Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from 
     www.flaticon.com
+
+# License
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+  Licensed under GPL-3.0 only. See [LICENSE](https://github.com/knjk04/Bookshelf/blob/master/LICENSE)
