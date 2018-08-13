@@ -25,11 +25,17 @@
   And more on its way!
   
 # Setup
-  Add your Google Books API key into /app/src/main/res/raw/api_key.txt (it was 
-  added to the .gitignore of this project, so you will need to create your own
-  raw directory and your own api_key.txt file).
+  Add your [Google Books API](https://developers.google.com/books/docs/v1/getting_started) 
+  key into a String in an enum in the default package called API. 
+  The String should be called key.
   
-  The file should only contain your API key without quotes or any blank lines.
+  E.g.
+  ```java
+  public enum API {
+    ;
+    public static final String key = "[your API key should go here]";
+  }
+  ```
 
 # Libraries used
   - [OkHttp](https://github.com/square/okhttp) by Square

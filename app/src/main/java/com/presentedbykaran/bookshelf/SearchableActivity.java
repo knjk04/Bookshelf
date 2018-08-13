@@ -64,8 +64,11 @@ public class SearchableActivity extends AppCompatActivity {
     private void searchFor(String query) {
         Toast.makeText(this, "You searched for: " + query, Toast.LENGTH_SHORT).show();
 
-        String apiKey = readAPIKey();
+//        String apiKey = readAPIKey();
 //        String author = "inauthor:keyes";
+
+        String apiKey = API.key;
+        Log.d(TAG, "Key in API enum: " + apiKey);
 
         String volumesWithTxt = "q=" + query;
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
@@ -210,28 +213,27 @@ public class SearchableActivity extends AppCompatActivity {
 
     // This method is for reading the API key and should be listed in the gitignore file.
     // This allows you to store your secret API key safely
-    private String readAPIKey() {
-        Log.d(TAG, "Key in API enum: " + API.key);
-
-        String data = "";
-        InputStream inputStream = this.getResources().openRawResource(R.raw.api_key);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-        if (inputStream != null) {
-            try {
-                // There should be a better way than this: do nothing if it isn't null since we only
-                // need the first line and if the file has a line, it is stored in data
-                if ((data = bufferedReader.readLine()) != null) ;
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-//        Log.d(TAG, "API key: " + data);
-
-        return data;
-    }
+//    private String readAPIKey() {
+//
+//        String data = "";
+//        InputStream inputStream = this.getResources().openRawResource(R.raw.api_key);
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//        if (inputStream != null) {
+//            try {
+//                // There should be a better way than this: do nothing if it isn't null since we only
+//                // need the first line and if the file has a line, it is stored in data
+//                if ((data = bufferedReader.readLine()) != null) ;
+//                inputStream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+////        Log.d(TAG, "API key: " + data);
+//
+//        return data;
+//    }
 
     private void noInternetConnectionSnackbar() {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.searchableLayout),
