@@ -14,11 +14,17 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 //import com.squareup.picasso.Picasso;
 
+/** Bookshelf.  Copyright (C). 2018.  Karan Kumar
+  * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+  * This is free software, and you are welcome to redistribute it
+  * under certain conditions; type `show c' for details.
+  *
+  is licensed under GNU General Public License v3.0 only
+*/
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
-        Uri uri = Uri.parse(urlStr);
-        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
-        draweeView.setImageURI(uri);
-
-//        imageView = findViewById(R.id.imageView2);
-//        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
-
-//        imageView = findViewById(R.id.imageView2);
-//        String urlStr = "https://i.imgur.com/DvpvklR.png";
-//        String urlStr = "https://books.google.com/books/content?id=kotPYEqx7kMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
-//        Uri uri = Uri.parse(urlStr);
-//        Picasso.get().load(uri).into(imageView);
-
     }
 
 

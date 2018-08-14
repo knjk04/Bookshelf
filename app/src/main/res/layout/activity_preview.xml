@@ -7,105 +7,121 @@
     android:layout_height="match_parent"
     tools:context=".Preview">
 
-    <TextView
-        android:id="@+id/previewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056"
-        tools:text="Harry Potter and the Deathly Hallows" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/previewAuthors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/previewDrawee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previewTitle"
-        app:layout_constraintVertical_bias="0.35"
-        tools:text="By J.K. Rowling" />
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/previewDrawee"
-        android:layout_width="169dp"
-        android:layout_height="226dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/bookTitleTxt"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previewTitle"
-        app:layout_constraintVertical_bias="0.256"
-        fresco:placeholderImage="@android:drawable/ic_menu_close_clear_cancel" />
-
-    <Button
-        android:id="@+id/previewAddToBookshelfBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/white"
-        android:onClick="addToBookShelfOnClick"
-        android:padding="8dp"
-        android:text="@string/add_to_bookshelf_btn_txt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previewDrawee"
-        app:layout_constraintVertical_bias="0.557" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="129dp"
-        android:layout_height="21dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previewAddToBookshelfBtn"
-        app:layout_constraintVertical_bias="0.959"
-        fresco:srcCompat="@drawable/powered_by_google_on_white" />
-
-    <!--<RatingBar-->
-        <!--android:id="@+id/ratingBar"-->
-        <!--android:layout_width="235dp"-->
-        <!--android:layout_height="50dp"-->
+        <!--<TextView-->
+        <!--android:id="@+id/previewTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
         <!--android:layout_marginBottom="8dp"-->
         <!--android:layout_marginEnd="8dp"-->
         <!--android:layout_marginStart="8dp"-->
         <!--android:layout_marginTop="8dp"-->
-        <!--style="@style/Base.Widget.AppCompat.RatingBar.Small"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="@android:color/background_dark"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.056"-->
+        <!--tools:text="Harry Potter and the Deathly Hallows" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/previewAuthors"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:textStyle="italic"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/previewDrawee"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.501"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/previewTitle"-->
+        <!--app:layout_constraintVertical_bias="0.35"-->
+        <!--tools:text="By J.K. Rowling" />-->
+
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/previewDrawee"-->
+        <!--android:layout_width="169dp"-->
+        <!--android:layout_height="226dp"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignTop="@+id/bookTitleTxt"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:paddingStart="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/previewTitle"-->
+        <!--app:layout_constraintVertical_bias="0.256"-->
+        <!--fresco:placeholderImage="@android:drawable/ic_menu_close_clear_cancel" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/previewDescription"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:padding="8dp"-->
         <!--app:layout_constraintBottom_toTopOf="@+id/previewAddToBookshelfBtn"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/previewDrawee" />-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/previewDrawee"-->
+        <!--tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla mauris non velit vestibulum auctor. Fusce mattis enim eu diam lobortis, in dictum est molestie." />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/previewAddToBookshelfBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:onClick="addToBookShelfOnClick"-->
+        <!--android:padding="8dp"-->
+        <!--android:text="@string/add_to_bookshelf_btn_txt"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.502"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/previewDrawee"-->
+        <!--app:layout_constraintVertical_bias="0.557" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="129dp"-->
+        <!--android:layout_height="21dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.502"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/previewAddToBookshelfBtn"-->
+        <!--app:layout_constraintVertical_bias="0.959"-->
+        <!--fresco:srcCompat="@drawable/powered_by_google_on_white" />-->
+
+        <!--<include-->
+            <!--layout="@layout/preview1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </android.support.constraint.ConstraintLayout>

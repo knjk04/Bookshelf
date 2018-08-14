@@ -1,3 +1,4 @@
+
 # Bookshelf
   <p align="center">
 	<img src="/repoMedia/bookshelf_icon_512.png" alt="App icon"/>
@@ -26,7 +27,7 @@
   
 # Setup
   Add your [Google Books API](https://developers.google.com/books/docs/v1/getting_started) 
-  key into a String in an enum in the default package called API. 
+  key into a String in an enum called API in the default package.
   The String should be called key.
   
   E.g.

@@ -5,13 +5,19 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.presentedbykaran.bookshelf.databinding.ActivitySearchResultsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/** Bookshelf.  Copyright (C). 2018.  Karan Kumar
+  * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+  * This is free software, and you are welcome to redistribute it
+  * under certain conditions; type `show c' for details.
+  *
+  * This is licensed under GNU General Public License v3.0 only
+*/
 
 public class SearchResultsActivity extends Activity {
 

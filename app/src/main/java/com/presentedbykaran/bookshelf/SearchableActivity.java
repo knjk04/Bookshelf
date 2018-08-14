@@ -35,13 +35,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/** Bookshelf.  Copyright (C). 2018.  Karan Kumar
+ * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+ * This is free software, and you are welcome to redistribute it
+ * under certain conditions; type `show c' for details.
+ *
+ * This is licensed under GNU General Public License v3.0 only
+ */
+
 public class SearchableActivity extends AppCompatActivity {
     public static final String TAG = SearchableActivity.class.getSimpleName();
     private BookList bookList;
     private String searchQuery;
     private boolean isAvailable = false;
 
-    SimpleDraweeView draweeView;
+//    SimpleDraweeView draweeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +143,7 @@ public class SearchableActivity extends AppCompatActivity {
         return bookList;
     }
 
+    // TODO: refactor method to shorten in. It's rather long
     private Book[] getBookDetails(String jsonData) throws JSONException {
         JSONObject details = new JSONObject(jsonData);
         JSONArray items = details.getJSONArray("items");
@@ -161,7 +170,9 @@ public class SearchableActivity extends AppCompatActivity {
                     arrAuthors[j] = jsonAuthors.getString(j);
                 book.setAuthors(Arrays.asList(arrAuthors));
             } else {
-                book.setAuthors(Arrays.asList("No authors found"));
+                // if there isn't an authors property, let the Book class handle the logic
+                book.setAuthors(Arrays.asList(""));
+//                book.setAuthors(Arrays.asList("No authors found"));
                 Log.d(TAG, "No authors");
             }
 
@@ -182,19 +193,43 @@ public class SearchableActivity extends AppCompatActivity {
                 book.setRatingsCount(0);
             }
 
+            if (volumeInfo.has("publisher")) {
+                String publisher = volumeInfo.getString("publisher");
+                book.setPublisher(publisher);
+            } else {
+                Log.d(TAG,"No publisher for index " + i);
+                // if there isn't a publisher property, let the Book class handle the logic
+                book.setPublisher("");
+            }
 
-//            Uri thumbnailUri;
-//            if (volumeInfo.has("imageLinks")) {
-////            String imageThumbnail = volumeInfo.getString("image")
-//                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-////                imageView.setImageURI(Uri.parse(imageLinks.getString("smallThumbnail")));
-//                thumbnailUri = Uri.parse(imageLinks.getString("smallThumbnail"));
-////                book.setImage(thumbnailUri);
-//            } else {
-//                Log.d(TAG, "No imageLinks for index " + i);
-//                thumbnailUri = null;
-//            }
-//            book.setImage(thumbnailUri);
+            if (volumeInfo.has("publishedDate")) {
+                String publishedDate = volumeInfo.getString("publishedDate");
+                book.setPublishedDate(publishedDate);
+            } else {
+                Log.d(TAG,"No published date for index " + i);
+                // if there isn't a published date property, let the Book class handle the logic
+                book.setPublishedDate("");
+            }
+
+            if (volumeInfo.has("pageCount")) {
+                int pageCount = volumeInfo.getInt("pageCount");
+                book.setPageCount(pageCount);
+            } else {
+                Log.d(TAG,"No publisher for index " + i);
+                // if there isn't a page count property, set the page count to 0 and let the Book
+                // class handle what to set the data as
+                book.setPageCount(0);
+            }
+
+            if (volumeInfo.has("description")) {
+                String description = volumeInfo.getString("description");
+                book.setDescription(description);
+            } else {
+                Log.d(TAG,"No description for index " + i);
+                // if there isn't a description property, let the Book class handle the logic
+                book.setDescription("");
+            }
+
 
             if (volumeInfo.has("imageLinks")) {
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
@@ -210,30 +245,6 @@ public class SearchableActivity extends AppCompatActivity {
         }
         return books;
     }
-
-    // This method is for reading the API key and should be listed in the gitignore file.
-    // This allows you to store your secret API key safely
-//    private String readAPIKey() {
-//
-//        String data = "";
-//        InputStream inputStream = this.getResources().openRawResource(R.raw.api_key);
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//        if (inputStream != null) {
-//            try {
-//                // There should be a better way than this: do nothing if it isn't null since we only
-//                // need the first line and if the file has a line, it is stored in data
-//                if ((data = bufferedReader.readLine()) != null) ;
-//                inputStream.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-////        Log.d(TAG, "API key: " + data);
-//
-//        return data;
-//    }
 
     private void noInternetConnectionSnackbar() {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.searchableLayout),
