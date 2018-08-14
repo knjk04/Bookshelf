@@ -3,11 +3,12 @@
   <p align="center">
 	<img src="/repoMedia/bookshelf_icon_512.png" alt="App icon"/>
   </p>
-  
 
   
   Android app that uses the Google Books API to let you search for book titles 
   and/or authors, which you can save to a wishlist (WIP)
+  
+  ![Previews](/repoMedia/Previews-Quarter-Res.png)
 
   Currently, you can only search for book titles. The wishlist part of the app 
   hasn't been developed yet
