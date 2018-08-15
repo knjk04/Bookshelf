@@ -30,7 +30,6 @@
                 android:layout_alignTop="@+id/bookTitleTxt"
                 android:paddingStart="8dp"
                 fresco:placeholderImage="@android:drawable/ic_menu_close_clear_cancel" />
-            <!--fresco:placeholderImage="@{String.valueOf(book.strImageURL)" />-->
 
             <!--<ImageView-->
                 <!--android:id="@+id/bookCoverImageView"-->

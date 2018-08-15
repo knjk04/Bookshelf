@@ -46,6 +46,10 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".Preview"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

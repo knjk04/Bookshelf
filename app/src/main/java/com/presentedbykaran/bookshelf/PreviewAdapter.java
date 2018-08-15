@@ -17,6 +17,13 @@ import butterknife.BindView;
 
 /**
  * Created by karan on 14/08/18.
+ *
+ * Bookshelf.  Copyright (C). 2018.  Karan Kumar
+ * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+ * This is free software, and you are welcome to redistribute it
+ * under certain conditions; type `show c' for details.
+ *
+ * This is licensed under GNU General Public License v3.0 only
  */
 public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHolder> {
 
@@ -67,7 +74,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
         String title = mBookArrayList.get(position).getBookTitle();
         Log.d(TAG, "title in onBindViewHolder(): " + title);
 
-        viewHolder.bookTitle.setText(mBookArrayList.get(position).getBookTitle());
+        viewHolder.bookTitle.setText(mBookArrayList.get(mPosition).getBookTitle());
         viewHolder.bookAuthors.setText(mBookArrayList.get(position).getAuthors());
         viewHolder.bookThumbnail.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         viewHolder.bookThumbnail.setImageURI(mBookArrayList.get(position).getStrImageURL());

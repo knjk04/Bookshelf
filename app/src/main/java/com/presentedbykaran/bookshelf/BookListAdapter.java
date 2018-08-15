@@ -19,6 +19,7 @@ import com.presentedbykaran.bookshelf.databinding.SingleListRowBinding;
 //import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     }
 
     private List<Book> bookList;
+//    private ArrayList<Book> mBookArrayList;
     private Context mContext;
     public static final String TAG = BookListAdapter.class.getSimpleName();
 
@@ -51,8 +53,17 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         this.bookList = bookList;
         this.mContext = mContext;
 
+//        mBookArrayList = new ArrayList<>(bookList.size());
+//        mBookArrayList.addAll(bookList);
+
         Fresco.initialize(mContext);
     }
+
+//    public BookListAdapter(ArrayList<Book> bookList, Context mContext) {
+//        mBookArrayList = bookList;
+//        this.mContext = mContext;
+//        Fresco.initialize(mContext);
+//    }
 
 //    @NonNull
 //    @Override
@@ -86,6 +97,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Book book = bookList.get(i);
+//        Book book = mBookArrayList.get(i);
         viewHolder.singleListRowBinding.setBook(book);
 
         Log.d(TAG, "Image URL: " + book.getStrImageURL());
@@ -94,6 +106,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
             String sampleUrl = "https://i.imgur.com/tGbaZCY.jpg%22";
             Uri uri = Uri.parse(book.getStrImageURL());
             viewHolder.draweeView.setImageURI(uri);
+
+//            viewHolder.draweeView.setImageURI(bookList.get(i).getStrImageURL());
 
 //            Uri uri = Uri.parse(book.getStrImageURL());
 ////            Uri uri = Uri.parse("https://i.imgur.com/tGbaZCY.jpg%22");
@@ -135,6 +149,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+//        return mBookArrayList.size();
         return bookList.size();
     }
 
@@ -142,7 +157,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
         public SingleListRowBinding singleListRowBinding;
 
-        public SimpleDraweeView draweeView;
+        SimpleDraweeView draweeView;
 //        public ImageView imageView;
 
 //        public ViewHolder(SingleListRowBinding singleRowLayoutBinding) {

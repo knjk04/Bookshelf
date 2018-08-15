@@ -53,7 +53,7 @@ public class Book implements Serializable {
     public static final String TAG = Book.class.getSimpleName();
 
     public Book(Activity activity) {
-        findViews(activity);
+//        findViews(activity);
     }
 
     public Book(String bookTitle, List<String> authors, double rating, int ratingsCount,
@@ -76,9 +76,9 @@ public class Book implements Serializable {
 //    }
 
 
-    private void findViews(Activity activity) {
-//        draweeView = activity.findViewById(R.id.bookCoverDrawee);
-    }
+//    private void findViews(Activity activity) {
+////        draweeView = activity.findViewById(R.id.bookCoverDrawee);
+//    }
 
     public String getBookTitle() {
         return bookTitle;
@@ -145,7 +145,7 @@ public class Book implements Serializable {
 
     public void setPublisher(String publisher) {
         if (publisher.isEmpty()) publisher += PUBLISHER_SUFFIX;
-        else this.publisher = publisher;
+        else this.publisher += publisher;
     }
 
     public String getPublishedDate() {

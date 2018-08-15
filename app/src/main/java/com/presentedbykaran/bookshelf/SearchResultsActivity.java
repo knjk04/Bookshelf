@@ -38,6 +38,8 @@ public class SearchResultsActivity extends Activity {
 
 //        Fresco.initialize(this);
 
+//        ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
+//        bookListAdapter = new BookListAdapter(bookArrayList, this);
         bookListAdapter = new BookListAdapter(bookList, this);
 
         activitySearchResultsBinding.searchResultsRecycler.setAdapter(bookListAdapter);
@@ -47,10 +49,6 @@ public class SearchResultsActivity extends Activity {
         bookListAdapter.setOnItemClickListener(new BookListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String title = bookList.get(position).getBookTitle();
-//                Toast.makeText(SearchResultsActivity.this, title, Toast.LENGTH_SHORT).show();
-
-//                ArrayList<Object> object = new ArrayList<Object>();
                 ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
                 bookArrayList.addAll(bookList);
 

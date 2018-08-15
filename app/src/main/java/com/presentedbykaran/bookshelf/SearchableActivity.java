@@ -70,9 +70,9 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private void searchFor(String query) {
-        Toast.makeText(this, "You searched for: " + query, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "You searched for: " + query, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Fetching data. Please wait", Toast.LENGTH_SHORT).show();
 
-//        String apiKey = readAPIKey();
 //        String author = "inauthor:keyes";
 
         String apiKey = API.key;
@@ -230,15 +230,10 @@ public class SearchableActivity extends AppCompatActivity {
                 book.setDescription("");
             }
 
-
             if (volumeInfo.has("imageLinks")) {
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                 String strSmallThumbnailURL = imageLinks.getString("smallThumbnail");
                 book.setStrImageURL(strSmallThumbnailURL);
-
-//                Uri uri = Uri.parse(strSmallThumbnailURL);
-//                SimpleDraweeView draweeView = findViewById(R.id.bookCoverDrawee);
-//                draweeView.setImageURI(uri);
             }
 
             books[i] = book;
