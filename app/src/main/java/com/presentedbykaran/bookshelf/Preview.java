@@ -39,6 +39,9 @@ public class Preview extends AppCompatActivity {
     @BindView(R.id.previewPublisherTxt) TextView publisher;
     @BindView(R.id.previewPublishedDateTxt) TextView publishedDate;
 
+    @BindView(R.id.previewRatingTxt) TextView ratings;
+    @BindView(R.id.previewRatingCountTxt) TextView ratingCount;
+
     boolean mHaveClicked;
 
     @Override
@@ -68,6 +71,10 @@ public class Preview extends AppCompatActivity {
 
             publisher.setText(bookArrayList.get(position).getPublisher());
             publishedDate.setText(bookArrayList.get(position).getPublishedDate());
+
+            ratings.setText(bookArrayList.get(position).getRating());
+            ratingCount.setText(bookArrayList.get(position).getRatingsCount());
+
         } else {
             Log.e(TAG, "Error in retrieving position");
         }

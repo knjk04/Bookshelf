@@ -10,7 +10,7 @@
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="buttonTextMainScreen">Go</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="get_started">Click on the search button to get started</string>
+    <string name="get_started">Welcome back</string>
     <string name="add_to_bookshelf_btn_txt">Add to bookshelf</string>
     <string name="book_description">Book Description</string>
 </resources>

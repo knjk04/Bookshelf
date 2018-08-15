@@ -40,11 +40,12 @@ public class Book implements Serializable {
     private String rating = "Rating on Google Books: ";
     private String ratingsCount = "(";
     private String strImageURL;
-
     private String publisher = "Publisher: ";
     private String publishedDate = "Published Date: ";
     private String pageCount = "Number of pages: ";
     private String description;
+
+    private String selfLink; // used for
 
 //    private SimpleDraweeView draweeView;
 
@@ -171,7 +172,7 @@ public class Book implements Serializable {
     }
 
     public void setDescription(String description) {
-        if (description.isEmpty()) description = "Description not found";
+        if (description.isEmpty()) this.description = "Description not found";
         else this.description = description;
     }
 
