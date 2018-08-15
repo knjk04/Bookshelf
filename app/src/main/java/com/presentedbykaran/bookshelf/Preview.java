@@ -39,20 +39,13 @@ public class Preview extends AppCompatActivity {
     @BindView(R.id.previewPublisherTxt) TextView publisher;
     @BindView(R.id.previewPublishedDateTxt) TextView publishedDate;
 
-//    @BindView(R.id.previewAddToBookshelfBtn) Button addBtn;
-
     boolean mHaveClicked;
-
-//    private RecyclerView mRecyclerView;
-//    private RecyclerView.LayoutManager mLayoutManager;
-//    private RecyclerView.Adapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_preview);
-//        setContentView(R.layout.preview1);
 
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
@@ -63,7 +56,6 @@ public class Preview extends AppCompatActivity {
 
         if (position != -1) {
             ButterKnife.bind(this);
-//
             bookTitle.setText(bookArrayList.get(position).getBookTitle());
             bookAuthors.setText(bookArrayList.get(position).getAuthors());
 
@@ -76,7 +68,6 @@ public class Preview extends AppCompatActivity {
 
             publisher.setText(bookArrayList.get(position).getPublisher());
             publishedDate.setText(bookArrayList.get(position).getPublishedDate());
-//
         } else {
             Log.e(TAG, "Error in retrieving position");
         }

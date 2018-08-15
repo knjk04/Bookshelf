@@ -6,7 +6,11 @@
 
   
   Android app that uses the Google Books API to let you search for book titles 
-  and/or authors, which you can save to a wishlist (WIP)
+  and/or authors, which you can save to a wishlist (WIP).
+  
+  Please note that the screenshots below are for demonstration purposes only. 
+  The actual app may differ slightly in terms of design. In the event of a major
+  design change, the screenshots will be updated.
   
   ![Screenshots](/repoMedia/all-screens-quarter-res.png)
 
@@ -21,6 +25,8 @@
   - Search for a book title and get a list of the top results showing the book
 	title, the corresponding author, the rating of the book on Google Books and
 	the number of ratings
+	
+  - Find out more information about a book (number of pages, publisher and published date)
 	
   - Voice search
   

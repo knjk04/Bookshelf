@@ -14,9 +14,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:gravity="center"
         android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,17 +94,46 @@
         app:layout_constraintVertical_bias="0.916"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla mauris non velit vestibulum auctor. Fusce mattis enim eu diam lobortis, in dictum est molestie." />
 
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="366dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/previewDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="366dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/previewAddToBookshelfBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/previewDescription" />
+
     <Button
         android:id="@+id/previewAddToBookshelfBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/white"
         android:onClick="addToBookShelfOnClick"
         android:padding="8dp"
         android:text="@string/add_to_bookshelf_btn_txt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/previewDescription" />
 
