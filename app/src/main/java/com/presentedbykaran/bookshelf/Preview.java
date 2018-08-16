@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -19,11 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /** Bookshelf.  Copyright (C). 2018.  Karan Kumar
- * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
- * This is free software, and you are welcome to redistribute it
- * under certain conditions; type `show c' for details.
+ *  This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+ *  This is free software, and you are welcome to redistribute it
+ *  under certain conditions; type `show c' for details.
  *
- * This is licensed under GNU General Public License v3.0 only
+ *  This is licensed under GNU General Public License v3.0 only
  */
 
 public class Preview extends AppCompatActivity {
@@ -75,9 +73,7 @@ public class Preview extends AppCompatActivity {
             ratings.setText(bookArrayList.get(position).getRating());
             ratingCount.setText(bookArrayList.get(position).getRatingsCount());
 
-        } else {
-            Log.e(TAG, "Error in retrieving position");
-        }
+        } else Log.e(TAG, "Error in retrieving position");
     }
 
     public void addToBookShelfOnClick(View view) {

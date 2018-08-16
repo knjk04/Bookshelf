@@ -1,17 +1,9 @@
 package com.presentedbykaran.bookshelf;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 
 /**
