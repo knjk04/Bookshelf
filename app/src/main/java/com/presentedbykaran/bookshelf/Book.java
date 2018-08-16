@@ -176,6 +176,14 @@ public class Book implements Serializable {
         else this.description = description;
     }
 
+    public String getSelfLink() {
+        return selfLink;
+    }
+
+    public void setSelfLink(String selfLink) {
+        this.selfLink = selfLink;
+    }
+
     // This method converts a http link to a https link
     // This is needed in order to use Fresco to set the image. It won't work with a regular http link
 

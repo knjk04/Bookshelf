@@ -156,12 +156,13 @@ public class SearchableActivity extends AppCompatActivity {
 
             Book book = new Book(this);
 
-            if (volumeInfo.has("title"))
-                book.setBookTitle(volumeInfo.getString("title"));
-            else {
-                // Do not set a generic title. There should really be a title at the very least
-                Log.d(TAG, "No title for index " + i);
-            }
+            book.setBookTitle(getJSONString(volumeInfo, "title"));
+//            if (volumeInfo.has("title"))
+//                book.setBookTitle(volumeInfo.getString("title"));
+//            else {
+//                // Do not set a generic title. There should really be a title at the very least
+//                Log.d(TAG, "No title for index " + i);
+//            }
 
             if (volumeInfo.has("authors")) {
                 JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
@@ -172,11 +173,9 @@ public class SearchableActivity extends AppCompatActivity {
             } else {
                 // if there isn't an authors property, let the Book class handle the logic
                 book.setAuthors(Arrays.asList(""));
-//                book.setAuthors(Arrays.asList("No authors found"));
                 Log.d(TAG, "No authors");
             }
 
-            // Ratings don't work for some reason. It can't find averageRating, so exception thrown
             if (volumeInfo.has("averageRating")) {
                 double rating = volumeInfo.getDouble("averageRating");
                 book.setRating(rating);
@@ -185,51 +184,57 @@ public class SearchableActivity extends AppCompatActivity {
                 book.setRating(0);
             }
 
-            if (volumeInfo.has("ratingsCount")) {
-                int ratingsCount = volumeInfo.getInt("ratingsCount");
-                book.setRatingsCount(ratingsCount);
-            } else {
-                Log.d(TAG,"No ratingsCount for index " + i);
-                book.setRatingsCount(0);
-            }
+            book.setRatingsCount(getJSONInt(volumeInfo, "ratingsCount"));
+//            if (volumeInfo.has("ratingsCount")) {
+//                int ratingsCount = volumeInfo.getInt("ratingsCount");
+//                book.setRatingsCount(ratingsCount);
+//            } else {
+//                Log.d(TAG,"No ratingsCount for index " + i);
+//                book.setRatingsCount(0);
+//            }
 
-            if (volumeInfo.has("publisher")) {
-                String publisher = volumeInfo.getString("publisher");
-                book.setPublisher(publisher);
-            } else {
-                Log.d(TAG,"No publisher for index " + i);
-                // if there isn't a publisher property, let the Book class handle the logic
-                book.setPublisher("");
-            }
+            book.setPublisher(getJSONString(volumeInfo, "publisher"));
+//            if (volumeInfo.has("publisher")) {
+//                String publisher = volumeInfo.getString("publisher");
+//                book.setPublisher(publisher);
+//            } else {
+//                Log.d(TAG,"No publisher for index " + i);
+//                // if there isn't a publisher property, let the Book class handle the logic
+//                book.setPublisher("");
+//            }
 
-            if (volumeInfo.has("publishedDate")) {
-                String publishedDate = volumeInfo.getString("publishedDate");
-                book.setPublishedDate(publishedDate);
-            } else {
-                Log.d(TAG,"No published date for index " + i);
-                // if there isn't a published date property, let the Book class handle the logic
-                book.setPublishedDate("");
-            }
+            book.setPublishedDate(getJSONString(volumeInfo, "publishedDate"));
+//            if (volumeInfo.has("publishedDate")) {
+//                String publishedDate = volumeInfo.getString("publishedDate");
+//                book.setPublishedDate(publishedDate);
+//            } else {
+//                Log.d(TAG,"No published date for index " + i);
+//                // if there isn't a published date property, let the Book class handle the logic
+//                book.setPublishedDate("");
+//            }
 
-            if (volumeInfo.has("pageCount")) {
-                int pageCount = volumeInfo.getInt("pageCount");
-                book.setPageCount(pageCount);
-            } else {
-                Log.d(TAG,"No publisher for index " + i);
-                // if there isn't a page count property, set the page count to 0 and let the Book
-                // class handle what to set the data as
-                book.setPageCount(0);
-            }
+            book.setPageCount(getJSONInt(volumeInfo, "pageCount"));
+//            if (volumeInfo.has("pageCount")) {
+//                int pageCount = volumeInfo.getInt("pageCount");
+//                book.setPageCount(pageCount);
+//            } else {
+//                Log.d(TAG,"No publisher for index " + i);
+//                // if there isn't a page count property, set the page count to 0 and let the Book
+//                // class handle what to set the data as
+//                book.setPageCount(0);
+//            }
 
-            if (volumeInfo.has("description")) {
-                String description = volumeInfo.getString("description");
-                book.setDescription(description);
-            } else {
-                Log.d(TAG,"No description for index " + i);
-                // if there isn't a description property, let the Book class handle the logic
-                book.setDescription("");
-            }
+            book.setDescription(getJSONString(volumeInfo, "description"));
+//            if (volumeInfo.has("description")) {
+//                String description = volumeInfo.getString("description");
+//                book.setDescription(description);
+//            } else {
+//                Log.d(TAG,"No description for index " + i);
+//                // if there isn't a description property, let the Book class handle the logic
+//                book.setDescription("");
+//            }
 
+            // Do not require an else clause for this since there is a placeholder
             if (volumeInfo.has("imageLinks")) {
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                 String strSmallThumbnailURL = imageLinks.getString("smallThumbnail");
@@ -239,6 +244,14 @@ public class SearchableActivity extends AppCompatActivity {
             books[i] = book;
         }
         return books;
+    }
+
+    private String getJSONString(JSONObject jsonObject, String property) throws JSONException {
+        return (jsonObject.has(property)) ? jsonObject.getString(property) : "";
+    }
+
+    private int getJSONInt(JSONObject jsonObject, String property) throws JSONException {
+        return (jsonObject.has(property)) ? jsonObject.getInt(property) : 0;
     }
 
     private void noInternetConnectionSnackbar() {
