@@ -1,6 +1,6 @@
-Thank you for wanting to contribute! :)
+Thank you for wanting to contribute! :smiley:
 
-If you're wanting to contribute:
+Before contributing:
 - please inform us of the change you want to make before doing it. This way, we can ensure that people aren't working 
   on the same thing (we'll assign the task to you if it hasn't already been assigned).
 - please create a new branch for your changes and submit a pull request.
@@ -8,31 +8,24 @@ If you're wanting to contribute:
 # Styleguide
 
 Table of contents
-1. Introduction
+1. [Introduction](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#introduction)
 1. [Formatting](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#formatting)
-    1. Spaces around operators
-    1. No optional braces
+    1. [Spaces around operators](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#spaces-around-operators)
 1. [Naming conventions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#naming-conventions)
-    1. [Package names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#constants)
-    1. [Constants](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#constants)
     1. [Non-constant field names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#non-constant-field-names)
-    1. [Local variable names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
-    1. [Parameter names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
-    1. [Method names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
-  
-4. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#annotations)
+1. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#annotations)
 
 ## Introduction
-This style guide loosely follows [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html) (please 
-refer to this style guide instead of Google's if you're wanting to contribute here, as this style guide may differ
-slightly from Google's). 
+The style guide we follow is modelled around [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html)
+Where we have added to it or it differs, we have listed below. 
+
 If you see a place where the styleguide is violated, please do submit a pull request.
 
 ## Formatting
 
-- 100 character limit where possible (acceptable exceptions include a TODO statement)
-
 ### Spaces around operators 
+It's just a lot clearer and nicer to read. 
+
   - Acceptable:
   ```java
   this.pageCount += pageCount;
@@ -42,41 +35,30 @@ If you see a place where the styleguide is violated, please do submit a pull req
   this.pageCount+=pageCount;
 ```
 
-### No optional braces
-- Braces are ommitted where optional for ```if```, ```else```, ```for``` and ```while``` statements
+### Explicit operator precedence
+Even where obvious. use parenthesis to make the ordering explicit. It could save someone else who does not know 
+the precedence rules from having to look it up.
+
+```java
+meaningfulVariableName = (2 * SECONDS_IN_MILLIS) + OFFSET; 
+```
 
 ## Naming conventions
-
-### Package names
-- Packages names follow the Google style: "all lowercase, with consecutive words simply concatenated 
-  together (no underscores)." For instance, `com.example.smallbookshelf`, not `com.example.smallBookshelf`
-  or `com.example.small_bookshelf`
-  
-### Constants
-- Constant names should be in all uppercase letters, with consecutive words separated by an underscore 
-  - ```java 
-    public static final String PUBLISHER_SUFFIX = "not found"; 
-    ```
 
 ### Non-constant field names
 - Member variables start with 'm'
 
-- Non-constant field names are usually nouns or noun phrases (e.g. `decsription` or `searchQuery`
+## Good practices
 
-### Local variable names
-- Local variable names should be written in `lowerCamelCase`
+### final where possible
+If something can be made final (e.g. constants), it should be made final.
 
-- Even if the local variable is final immutable, it should not be styled as constants in all uppercase letters
+### Use maintained/better libraries
+If a third-party library is not maintained, please avoid using it. 
 
-### Parameter names
-- Single character parameter names in methods (public or private) should be avoided
+If something is deprecated (third-party or not), please also avoid using it.
 
-- Parameter names should be written in `lowerCamelCase`
-
-### Method names
-- Method names should be written in `lowerCamelCase`
-
-- Method name should be verbs or verb phrases. For example, `executeSearch` or `searchFor`.
+- E.g. RecyclerView over ListView
 
 ## Annotations
 - Every annotation should be on its own, separate line
