@@ -7,15 +7,32 @@ If you're wanting to contribute:
 
 # Styleguide
 
+Table of contents
+1. Introduction
+1. [Formatting](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#formatting)
+    1. Spaces around operators
+    1. No optional braces
+1. [Naming conventions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#naming-conventions)
+    1. [Package names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#constants)
+    1. [Constants](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#constants)
+    1. [Non-constant field names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#non-constant-field-names)
+    1. [Local variable names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
+    1. [Parameter names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
+    1. [Method names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#local-variable-names)
+  
+4. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#annotations)
+
+## Introduction
 This style guide loosely follows [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html) (please 
 refer to this style guide instead of Google's if you're wanting to contribute here, as this style guide may differ
 slightly from Google's). 
 If you see a place where the styleguide is violated, please do submit a pull request.
 
 ## Formatting
-- 80 character limit where possible (acceptable exceptions include a TODO statement)
 
-- Spaces around operators 
+- 100 character limit where possible (acceptable exceptions include a TODO statement)
+
+### Spaces around operators 
   - Acceptable:
   ```java
   this.pageCount += pageCount;
@@ -23,7 +40,9 @@ If you see a place where the styleguide is violated, please do submit a pull req
   - Not acceptable:
   ```java
   this.pageCount+=pageCount;
-  ```
+```
+
+### No optional braces
 - Braces are ommitted where optional for ```if```, ```else```, ```for``` and ```while``` statements
 
 ## Naming conventions
