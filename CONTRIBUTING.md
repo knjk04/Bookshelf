@@ -5,23 +5,30 @@ Thank you for wanting to contribute! :smiley:
   on the same thing (we'll assign the task to you if it hasn't already been assigned).
 - please create a new branch for your changes and submit a pull request.
 
+If you're confused about some of the terminology we use, check out dedicated the Wiki page. If what you're looking for 
+isn't there, raise an issue as a question and we'll get back to you.
+
 # Style guide
 
 Table of contents
-1. [Introduction](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#introduction)
-1. [Formatting](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#formatting)
-    1. [Spaces around operators](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#spaces-around-operators)
-    1. [Explicit operator precedence](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#explicit-operator-precedence)
-1. [Naming conventions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#naming-conventions)
+1. [Introduction](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#1-introduction)
+1. [Formatting](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#2-formatting)
+    1. [Spaces around operators](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#21-spaces-around-operators)
+    1. [Explicit operator precedence](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#22-explicit-operator-precedence)
+1. [Naming conventions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#3-naming-conventions)
+    1. [Suffixes](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#311-suffixes)
     1. [Non-constant field names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#non-constant-field-names)
-1. [Good practices](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#good-practices)
+1. [Good practices](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#41-final-where-possible)
     1. [final where possible](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#final-where-possible)
-    1. [Use maintained/better libraries](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#use-maintainedbetter-libraries)
-1. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#annotations)
+    1. [Use maintained/better libraries](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#42-use-maintainedbetter-libraries)
+    1. Catch specific exceptions   
+1. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#5-annotations)
 
 ## 1. Introduction
 The style guide we follow is modelled around [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html).
-Where we have added to it or our style guide differs, we have listed below. 
+Where we have added to it or our style guide differs, we have listed below. Instead of rehashing Google's style guide here,
+if there is something in the Google style guide that does not clash with our style guide, you can assume we follow it.
+If in doubt, get in contact with us by raising an issue.
 
 If you see a place where the styleguide is violated, please do submit a pull request.
 
@@ -85,6 +92,25 @@ If something is deprecated (third-party or not), please also avoid using it.
 
 - E.g. RecyclerView over ListView
 
+### 4.3 Catch specific exceptions
+Instead of just catching Exception, if it is possible to catch (a) particular exception(s), do so.
+Bad:
+```java
+try {
+  // do something fishy
+} catch (Exception e) { // lazy
+  e.printStackTrace();
+}
+```
+
+Good:
+```java
+try {
+  // do something fishy
+} catch (NullPointerException e) {
+  e.printStackTrace();
+}
+```
 ## 5. Annotations
 - Every annotation should be on its own, separate line
   - E.g. 
