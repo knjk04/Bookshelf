@@ -1,6 +1,6 @@
 Thank you for wanting to contribute! :smiley:
 
-Before contributing:
+# Before contributing
 - please inform us of the change you want to make before doing it. This way, we can ensure that people aren't working 
   on the same thing (we'll assign the task to you if it hasn't already been assigned).
 - please create a new branch for your changes and submit a pull request.
@@ -50,7 +50,28 @@ meaningfulVariableName = (2 * SECONDS_IN_MILLIS) + OFFSET;
 ## 3. Naming conventions
 
 ### 3.1 Non-constant field names
-- Member variables start with 'm'
+- Member variables to be prefixed with ```m```, e.g.
+```java
+boolean mHaveClicked = false;
+```
+#### 3.1.1 Suffixes
+
+- ```TextView```s to be suffixed with ```txt```
+  - ```TextView mRatingsTxt; ```
+  
+- ```SimpleDraweeView```s to be suffixed with ```Drawee```
+  - ```SimpleDraweeView mBookThumbnailDrawee; ```
+  
+- ```Button```s to be suffixed with ```btn```
+  - ```Button goToBookshelfBtn;```
+  
+- ```Adapter```s to be suffixed with ```Adapter```
+  - ```java
+    private BookListAdapter bookListAdapter; 
+    ```
+    
+- ```Layout```s to be suffixed with ```Layout```
+  - ```android:id="@+id/constraintLayout"```
 
 ## 4. Good practices
 
