@@ -27,6 +27,12 @@ import java.util.List;
 
 // Aside from strImageUrl, the names correspond to the relevant Google Books API property name
 public class Book implements Serializable {
+    // --- Constants ---
+    private static final String PUBLISHER_SUFFIX = "not found";
+    private static final String RATING_COUNT_SUFFIX = " ratings)";
+    private static final String TAG = Book.class.getSimpleName();
+
+    // --- Fields ---
     private String bookTitle;
     private String authors = "By ";
     private String rating = "Rating on Google Books: ";
@@ -37,14 +43,14 @@ public class Book implements Serializable {
     private String pageCount = "Number of pages: ";
     private String description;
 
-    private String selfLink; // used for
+    // unique to every book, so use as an ID for saving to internal storage
+    // This means that when adding a book to a bookshelf, only the selfLink needs to be stored, not
+    // all the other info about it, since that can easily be retrieved from JSON again when needed
+    private String selfLink;
 
 //    private SimpleDraweeView draweeView;
 
-    private static final String PUBLISHER_SUFFIX = "not found";
-    private static final String RATING_COUNT_SUFFIX = " ratings)";
-    public static final String TAG = Book.class.getSimpleName();
-
+    // --- Constructors ---
     public Book(Activity activity) {
 //        findViews(activity);
     }
@@ -56,7 +62,6 @@ public class Book implements Serializable {
         this.rating += rating;
         this.ratingsCount += ratingsCount + RATING_COUNT_SUFFIX;
 
-//        this.strImageURL = strImageURL;
         changeHttpToHttps(strImageURL);
 
 //        findViews(activity);
@@ -73,6 +78,8 @@ public class Book implements Serializable {
 ////        draweeView = activity.findViewById(R.id.bookCoverDrawee);
 //    }
 
+    // --- public methods ---
+
     public String getBookTitle() {
         return bookTitle;
     }
@@ -86,7 +93,6 @@ public class Book implements Serializable {
     }
 
     public void setAuthors(List<String> authors) {
-
         int authorsSize = authors.size();
 
         // TODO: fix this
@@ -95,11 +101,12 @@ public class Book implements Serializable {
 
         // Makes a comma separated string if there is more than author
         for (int i = 0; i < authorsSize; i++) {
-            if (i > 0) this.authors += ", ";
+            if (i > 0) {
+                this.authors += ", ";
+            }
             this.authors += authors.get(i);
         }
-
-        Log.d(TAG, "strAuthors = " + authors);
+//        Log.d(TAG, "strAuthors = " + authors);
     }
 
     public String getRating() {
@@ -126,9 +133,6 @@ public class Book implements Serializable {
     }
 
     public void setStrImageURL(String strImageURL) {
-//        this.strImageURL = strImageURL;
-//        setImage(strImageURL);
-
         changeHttpToHttps(strImageURL);
     }
 
@@ -137,8 +141,11 @@ public class Book implements Serializable {
     }
 
     public void setPublisher(String publisher) {
-        if (publisher.isEmpty()) publisher += PUBLISHER_SUFFIX;
-        else this.publisher += publisher;
+        if (publisher.isEmpty()) {
+            this.publisher += PUBLISHER_SUFFIX;
+        } else {
+            this.publisher += publisher;
+        }
     }
 
     public String getPublishedDate() {
@@ -146,8 +153,11 @@ public class Book implements Serializable {
     }
 
     public void setPublishedDate(String publishedDate) {
-        if (publishedDate.isEmpty()) this.publishedDate += PUBLISHER_SUFFIX;
-        else this.publishedDate += publishedDate;
+        if (publishedDate.isEmpty()) {
+            this.publishedDate += PUBLISHER_SUFFIX;
+        } else {
+            this.publishedDate += publishedDate;
+        }
     }
 
     public String getPageCount() {
@@ -155,8 +165,11 @@ public class Book implements Serializable {
     }
 
     public void setPageCount(int pageCount) {
-        if (pageCount == 0) this.pageCount += "unknown";
-        else this.pageCount += pageCount;
+        if (pageCount == 0) {
+            this.pageCount += "unknown";
+        } else {
+            this.pageCount += pageCount;
+        }
     }
 
     public String getDescription() {
@@ -164,8 +177,11 @@ public class Book implements Serializable {
     }
 
     public void setDescription(String description) {
-        if (description.isEmpty()) this.description = "Description not found";
-        else this.description = description;
+        if (description.isEmpty()) {
+            this.description = "Description not found";
+        } else {
+            this.description = description;
+        }
     }
 
     public String getSelfLink() {
@@ -175,6 +191,8 @@ public class Book implements Serializable {
     public void setSelfLink(String selfLink) {
         this.selfLink = selfLink;
     }
+
+    // --- Private methods ---
 
     // This method converts a http link to a https link
     // This is needed in order to use Fresco to set the image. It won't work with a regular http link

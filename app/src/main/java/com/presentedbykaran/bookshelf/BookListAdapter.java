@@ -9,17 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.request.ImageRequest;
 import com.presentedbykaran.bookshelf.databinding.SingleListRowBinding;
-//import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,14 +28,14 @@ import java.util.List;
  */
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHolder> {
 
-    private OnItemClickListener mListener;
+    private OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
+        this.listener = listener;
     }
 
     private List<Book> bookList;
@@ -91,7 +85,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         View view = inflater.inflate(R.layout.single_list_row, viewGroup, false);
 
 
-        return new ViewHolder(binding, view, mListener);
+        return new ViewHolder(binding, view, listener);
     }
 
     @Override
@@ -165,7 +159,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 //            singleListRowBinding = singleRowLayoutBinding;
 //        }
 
-        public ViewHolder(SingleListRowBinding singleRowLayoutBinding, View view, final OnItemClickListener listener) {
+        public ViewHolder(SingleListRowBinding singleRowLayoutBinding, View view,
+                          final OnItemClickListener listener) {
             super((singleRowLayoutBinding).getRoot());
             singleListRowBinding = singleRowLayoutBinding;
 

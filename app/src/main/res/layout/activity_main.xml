@@ -6,11 +6,9 @@
 <!-- This is licensed under GNU General Public License v3.0 only-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="books"
             type="com.presentedbykaran.bookshelf.Book" />
@@ -66,6 +64,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.224"
             app:srcCompat="@drawable/powered_by_google_on_white" />
+
+        <Button
+            android:id="@+id/btnOpenBookshelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:background="@android:color/white"
+            android:text="See bookshelf"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.222" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

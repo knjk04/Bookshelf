@@ -36,7 +36,7 @@ import okhttp3.Response;
  */
 
 public class SearchableActivity extends AppCompatActivity {
-    public static final String TAG = SearchableActivity.class.getSimpleName();
+    private static final String TAG = SearchableActivity.class.getSimpleName();
     private BookList bookList;
     private String searchQuery;
     private boolean isAvailable = false;
@@ -50,7 +50,9 @@ public class SearchableActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             searchQuery = intent.getStringExtra(SearchManager.QUERY);
 
-            if (isNetworkAvailable()) searchFor(searchQuery);
+            if (isNetworkAvailable()) {
+                searchFor(searchQuery);
+            }
         }
     }
 
@@ -59,7 +61,7 @@ public class SearchableActivity extends AppCompatActivity {
 
 //        String author = "inauthor:keyes";
 
-        String apiKey = API.key;
+        String apiKey = API.KEY;
         Log.d(TAG, "Key in API enum: " + apiKey);
 
         String volumesWithTxt = "q=" + query;
@@ -109,8 +111,11 @@ public class SearchableActivity extends AppCompatActivity {
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
         isAvailable = false;
-        if (networkInfo != null && networkInfo.isConnected()) isAvailable = true;
-        else noInternetConnectionSnackbar();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        } else {
+            noInternetConnectionSnackbar();
+        }
         return isAvailable;
     }
 
@@ -144,32 +149,26 @@ public class SearchableActivity extends AppCompatActivity {
                 JSONArray jsonAuthors = volumeInfo.getJSONArray("authors");
                 String[] arrAuthors = new String[jsonAuthors.length()];
 
-                for (int j = 0; j < jsonAuthors.length(); j++)
+                for (int j = 0; j < jsonAuthors.length(); j++) {
                     arrAuthors[j] = jsonAuthors.getString(j);
+                }
 
                 book.setAuthors(Arrays.asList(arrAuthors));
             } else {
-                // if there isn't an authors property, let the Book class handle the logic
                 book.setAuthors(Arrays.asList(""));
-//                Log.d(TAG, "No authors");
             }
 
             if (volumeInfo.has("averageRating")) {
                 double rating = volumeInfo.getDouble("averageRating");
                 book.setRating(rating);
             } else {
-                Log.d(TAG, "No averageRating for index " + i);
                 book.setRating(0);
             }
 
             book.setRatingsCount(getJSONInt(volumeInfo, "ratingsCount"));
-
             book.setPublisher(getJSONString(volumeInfo, "publisher"));
-
             book.setPublishedDate(getJSONString(volumeInfo, "publishedDate"));
-
             book.setPageCount(getJSONInt(volumeInfo, "pageCount"));
-
             book.setDescription(getJSONString(volumeInfo, "description"));
 
             // Do not require an else clause since there is a placeholder
