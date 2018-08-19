@@ -14,16 +14,28 @@ we'll get back to you.
 
 Table of contents
 1. [Introduction](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#1-introduction)
+1. [File organisation](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#2-file-organisation)
+    1. [Import statements](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#21-import-statements)
+        1. [No wildcard imports](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#211-no-wildcard-imports)
+        1. [Remove unused imports](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#212-remove-unused-imports)        
 1. [Formatting](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#2-formatting)
+    1. [Braces](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#31-braces)
+        1. [Optional braces](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#311-optional-braces)
+        1. [K & R style nonempty blocks](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#312-k--r-style-nonempty-blocks)
+        1, [Empty blocks style](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#313-empty-blocks-style)
     1. [Spaces around operators](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#21-spaces-around-operators)
     1. [Explicit operator precedence](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#22-explicit-operator-precedence)
+    1. [One statement on every line line only](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#316-one-statement-on-every-line-only)
+    1. [Column limit: 100](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#317-column-limit-100)
 1. [Naming conventions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#3-naming-conventions)
-    1. [Suffixes](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#311-suffixes)
     1. [Non-constant field names](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#non-constant-field-names)
+    1. [Suffixes](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#311-suffixes)
 1. [Good practices](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#41-final-where-possible)
     1. [final where possible](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#final-where-possible)
     1. [Use maintained/better libraries](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#42-use-maintainedbetter-libraries)
-    1. [Catch specific exceptions   ](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#43-catch-specific-exceptions)
+    1. [Minimise variable scope](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#53-minimise-variable-scope)
+    1. [Catch specific exceptions](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#43-catch-specific-exceptions)
+1. [XML style](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#6-xml-style)
 1. [Annotations](https://github.com/knjk04/Bookshelf/blob/master/CONTRIBUTING.md#5-annotations)
 
 ## 1. Introduction
@@ -117,20 +129,35 @@ and anywhere breaking a statement at the 100 character limit is invalid.
 ## 4. Naming conventions
 
 ### 4.1 Non-constant field names
-- Member variables to be prefixed with ```m```, e.g.
+No Hungarian notation (System or Apps notation).
+
+Good:
+```java
+boolean haveClicked = false;
+```
+
+Bad:
 ```java
 boolean mHaveClicked = false;
 ```
-### 4.2 Suffixes
 
-- ```TextView```s to be suffixed with ```txt```
-  - ```TextView mRatingsTxt; ```
-  
-- ```SimpleDraweeView```s to be suffixed with ```Drawee```
-  - ```SimpleDraweeView mBookThumbnailDrawee; ```
-  
-- ```Button```s to be suffixed with ```btn```
-  - ```Button goToBookshelfBtn;```
+### 4.2 Prefixes
+
+#### 4.2.1 Files
+
+| Type of file | Prefix          |
+| ------------ | --------------- |
+| Activity     | ```activity_``` |
+| Fragment     | ```fragment_``` |
+| Menu         | ```menu_```     | 
+
+### 4.3 Suffixes
+
+| View             | Suffix       |
+| ---------------- | ------------ |
+| TextView         | ```Txt```    |
+| SimpleDraweeView | ```Drawee``` |
+| Button           | ```Btn```    |
   
 - ```Adapter```s to be suffixed with ```Adapter```
   - ```java
@@ -153,10 +180,14 @@ If something is deprecated (third-party or not), please also avoid using it.
 - E.g. RecyclerView over ListView
 
 ### 5.3 Minimise variable scope
-If something can be local, it should be made local.
+If something can be local, it should be made local. A variable should be declared as close to where it is used
+as possible. This can help reduce the likelihood of a bug occuring, as well as improve readability.
 
-### 5.4 Catch specific exceptions
-Instead of just catching Exception, if it is possible to catch (a) particular exception(s), do so.
+### Exceptions
+
+#### 5.4.1 Catch specific exceptions
+Instead of just catching ```Exception```, if it is possible to catch (a) particular exception(s), do so.
+
 Bad:
 ```java
 try {
@@ -174,6 +205,133 @@ try {
   e.printStackTrace();
 }
 ```
+
+#### 5.4.2 Don't drop the catch
+In a catch block, don't do nothing. 
+
+Good:
+```java
+try {
+  execFishyCode();
+} catch (IOException e) {
+  e.printStackTrace();
+}
+```
+
+Bad:
+
+```java
+try {
+  execFishyCode();
+} catch (IOException e) {
+}
+```
+
+### 5.5 String arrays use string resources
+
+Instead of using string literals, string arrays should always use String resources. Array string literals are not
+translated, whereas String resources are.
+
+Good:
+```xml
+<string-array name="bookInfoShortened">
+  <item> @string/title </item>
+  <item> @string/publishedDate </item>
+  <item> @string/publisher </item>
+</string-array>
+```
+
+Bad:
+```xml
+<string-array name="bookInfoShortened">
+  <item>title</item>
+  <item>publishedDate</item>
+  <item>publisher</item>
+</string-array>
+```
+
+### 5.6 Use single positive conditionals
+It can be a lot confusing for other programmers (see [Fowler's article](https://www.refactoring.com/catalog/removeDoubleNegative.html)).
+
+Good:
+```java
+if (isAvailable) {
+  // do something
+}
+```
+
+Bad:
+``` java
+if (!isNotAvailable()) {
+  // do something
+}
+```
+
+### 5.7 Class member ordering
+
+This section has been modified from the [Ribot Android style guide](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md). It is licensed under the Apache license.
+
+As the Ribot style guide points out, there is no one correct way of ordering members. However, following this format can help find, for example, 
+private methods easier.
+
+The following order should be used:
+1. Constants
+2. Fields
+3. Constructors
+4. Overidden methods and callbacks (public or private)
+5. Public methods
+6. Private methods
+7. Inner classes or interfaces
+
+```java
+public class MainActivity extends Activity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private String title;
+    private TextView textViewTitle;
+
+    @Override
+    public void onCreate() {
+        ...
+    }
+
+    public void setTitle(String title) {
+    	this.title = title;
+    }
+
+    private void setUpView() {
+        ...
+    }
+
+    static class InnerClass {
+
+    }
+}
+```
+
+```Activity``` or ```Fragment``` classes should follow the ordering or the activity/fragment lifecycle: 
+```onCreate()```, ```onDestroy```, ```onPause()``` and ```onResume()```.
+
+```java
+public class MainActivity extends Activity {
+
+	  // Order of methods corresponds to the order of the activity lifecycle
+    @Override
+    public void onCreate() {}
+
+    @Override
+    public void onResume() {}
+
+    @Override
+    public void onPause() {}
+
+    @Override
+    public void onDestroy() {}
+
+}
+```
+
 
 ## 6. XML style
 
@@ -194,3 +352,23 @@ Every annotation should be on its own, separate line
     
 ### 7.2 Overriding methods
 Where a method is overriden from a superclass, the ```@Override``` annotation should be used.
+
+# License
+
+For use of a part of Ribot's style guide.
+
+```
+Copyright [2018] [Karan Kumar]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
