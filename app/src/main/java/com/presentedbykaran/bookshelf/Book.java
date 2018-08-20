@@ -46,7 +46,8 @@ public class Book implements Serializable {
     // unique to every book, so use as an ID for saving to internal storage
     // This means that when adding a book to a bookshelf, only the selfLink needs to be stored, not
     // all the other info about it, since that can easily be retrieved from JSON again when needed
-    private String selfLink;
+//    private String selfLink;
+    private String volumeId;
 
 //    private SimpleDraweeView draweeView;
 
@@ -86,6 +87,7 @@ public class Book implements Serializable {
 
     public void setBookTitle(String bookTitle) {
         this.bookTitle = bookTitle;
+        Log.d(TAG, "Book title set to " + bookTitle);
     }
 
     public String getAuthors() {
@@ -93,18 +95,23 @@ public class Book implements Serializable {
     }
 
     public void setAuthors(List<String> authors) {
-        int authorsSize = authors.size();
+//        int authorsSize = authors.size();
+//        Log.d(TAG, "Authors size: " + authorsSize);
 
         // TODO: fix this
         // this doesn't seem to work
-        if (authorsSize == 0) this.authors += "no authors found";
+        if (authors == null || authors.size() == 0) {
+            this.authors = "No authors found";
+            Log.d(TAG, "No authors: " + this.authors);
+        } else {
 
-        // Makes a comma separated string if there is more than author
-        for (int i = 0; i < authorsSize; i++) {
-            if (i > 0) {
-                this.authors += ", ";
+            // Makes a comma separated string if there is more than author
+            for (int i = 0; i < authors.size(); i++) {
+                if (i > 0) {
+                    this.authors += ", ";
+                }
+                this.authors += authors.get(i);
             }
-            this.authors += authors.get(i);
         }
 //        Log.d(TAG, "strAuthors = " + authors);
     }
@@ -184,13 +191,22 @@ public class Book implements Serializable {
         }
     }
 
-    public String getSelfLink() {
-        return selfLink;
+//    public String getSelfLink() {
+//        return selfLink;
+//    }
+//
+//    public void setSelfLink(String selfLink) {
+//        this.selfLink = selfLink;
+//    }
+
+    public String getVolumeId() {
+        return volumeId;
     }
 
-    public void setSelfLink(String selfLink) {
-        this.selfLink = selfLink;
+    public void setVolumeId(String volumeId) {
+        this.volumeId = volumeId;
     }
+
 
     // --- Private methods ---
 

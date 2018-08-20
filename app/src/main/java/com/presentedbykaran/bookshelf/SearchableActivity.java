@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -21,6 +22,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -41,10 +45,14 @@ public class SearchableActivity extends AppCompatActivity {
     private String searchQuery;
     private boolean isAvailable = false;
 
+    @BindView(R.id.searchableBtn) Button searchBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
+
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -56,17 +64,37 @@ public class SearchableActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.searchableBtn)
+    public void executeSearch(View view) {
+        // It shouldn't be since you have to search for something to get here, but just in case
+        if (searchQuery == null) {
+            Log.d(TAG, "Search query was null");
+            return;
+        }
+
+        if (!isAvailable) {
+            showNoInternetConnectionSnackbar();
+            return;
+        }
+
+        List<Book> books = Arrays.asList(bookList.getBooks());
+        Intent intent = new Intent(this, SearchResultsActivity.class);
+        intent.putExtra("BookList", (Serializable) books);
+
+        startActivity(intent);
+    }
+
     private void searchFor(String query) {
         Toast.makeText(this, "Fetching data. Please wait", Toast.LENGTH_SHORT).show();
 
 //        String author = "inauthor:keyes";
 
-        String apiKey = API.KEY;
-        Log.d(TAG, "Key in API enum: " + apiKey);
+//        String apiKey = API.KEY;
+//        Log.d(TAG, "Key in API enum: " + apiKey);
 
         String volumesWithTxt = "q=" + query;
         String bookURL = "https://www.googleapis.com/books/v1/volumes?" + volumesWithTxt + "+" +
-                "&key=" + apiKey;
+                "&key=" + API.KEY;
 
 //        Log.d(TAG, bookURL);
 
@@ -91,7 +119,6 @@ public class SearchableActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-//                            mBooks = getBookDetails(jsonData);
                             bookList = parseBookListData(jsonData);
                         } else {
                             raiseError();
@@ -106,19 +133,23 @@ public class SearchableActivity extends AppCompatActivity {
         }
     }
 
+    // Even though the style guide states that method names should be verbs, it makes
+    // more sense if this method name is a noun phrase since it is called in an if statement
     private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(
+                Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
         isAvailable = false;
         if (networkInfo != null && networkInfo.isConnected()) {
             isAvailable = true;
         } else {
-            noInternetConnectionSnackbar();
+            showNoInternetConnectionSnackbar();
         }
         return isAvailable;
     }
 
+    // TODO: Use a different method than getFragmentManager() deprecated
     private void raiseError() {
         AlertDialogFragment dialogFragment = new AlertDialogFragment();
         dialogFragment.show(getFragmentManager(), "error dialog");
@@ -155,12 +186,12 @@ public class SearchableActivity extends AppCompatActivity {
 
                 book.setAuthors(Arrays.asList(arrAuthors));
             } else {
-                book.setAuthors(Arrays.asList(""));
+//                book.setAuthors(Arrays.asList(""));
+                book.setAuthors(null);
             }
 
             if (volumeInfo.has("averageRating")) {
-                double rating = volumeInfo.getDouble("averageRating");
-                book.setRating(rating);
+                book.setRating(volumeInfo.getDouble("averageRating"));
             } else {
                 book.setRating(0);
             }
@@ -174,11 +205,11 @@ public class SearchableActivity extends AppCompatActivity {
             // Do not require an else clause since there is a placeholder
             if (volumeInfo.has("imageLinks")) {
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                String strSmallThumbnailURL = imageLinks.getString("smallThumbnail");
-                book.setStrImageURL(strSmallThumbnailURL);
+                book.setStrImageURL(imageLinks.getString("smallThumbnail"));
             }
 
-            book.setSelfLink(getJSONString(jsonBook, "selfLink"));
+//            book.setSelfLink(getJSONString(jsonBook, "selfLink"));
+            book.setVolumeId(getJSONString(jsonBook, "id"));
 
             books[i] = book;
         }
@@ -197,28 +228,10 @@ public class SearchableActivity extends AppCompatActivity {
         return (jsonObject.has(property)) ? jsonObject.getInt(property) : 0;
     }
 
-    private void noInternetConnectionSnackbar() {
+    private void showNoInternetConnectionSnackbar() {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.searchableLayout),
                 R.string.no_connection, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
-    public void executeSearch(View view) {
-        // It shouldn't be since you have to search for something to get here, but just in case
-        if (searchQuery == null) {
-            Log.d(TAG, "Search query was null");
-            return;
-        }
-
-        if (!isAvailable) {
-            noInternetConnectionSnackbar();
-            return;
-        }
-
-        List<Book> books = Arrays.asList(bookList.getBooks());
-        Intent intent = new Intent(this, SearchResultsActivity.class);
-        intent.putExtra("BookList", (Serializable) books);
-
-        startActivity(intent);
-    }
 }

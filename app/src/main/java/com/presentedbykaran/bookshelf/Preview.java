@@ -45,7 +45,8 @@ public class Preview extends AppCompatActivity {
     @BindView(R.id.previewAddToBookshelfBtn) Button addToBookshelfBtn;
 
     boolean haveClicked;
-    private String selfLink;
+//    private String selfLink;
+    private String volumeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,8 @@ public class Preview extends AppCompatActivity {
             ratingsTxt.setText(bookArrayList.get(position).getRating());
             ratingCountTxt.setText(bookArrayList.get(position).getRatingsCount());
 
-            selfLink = bookArrayList.get(position).getSelfLink();
+//            selfLink = bookArrayList.get(position).getSelfLink();
+            volumeId = bookArrayList.get(position).getVolumeId();
 
         } else Log.e(TAG, "Error in retrieving position");
     }
@@ -107,7 +109,8 @@ public class Preview extends AppCompatActivity {
 
         try {
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-            outputStream.write(selfLink.getBytes());
+//            outputStream.write(selfLink.getBytes());
+            outputStream.write(volumeId.getBytes());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 

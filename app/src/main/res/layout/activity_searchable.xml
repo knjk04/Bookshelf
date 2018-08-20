@@ -13,8 +13,10 @@
     android:layout_height="match_parent"
     tools:context=".SearchableActivity">
 
+    <!-- No point in changing the Text of this button to String resource since this is only
+    temporary -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/searchableBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -22,7 +24,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        android:onClick="executeSearch"
         android:padding="8dp"
         android:text="See results"
         app:layout_constraintBottom_toBottomOf="parent"
