@@ -14,8 +14,14 @@ import android.widget.Toast;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +52,10 @@ public class Preview extends AppCompatActivity {
 
     boolean haveClicked;
 //    private String selfLink;
-    private String volumeId;
+
+    private String title;
+    private String authors;
+//    private String volumeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +72,12 @@ public class Preview extends AppCompatActivity {
 
         if (position != -1) {
             ButterKnife.bind(this);
-            bookTitleTxt.setText(bookArrayList.get(position).getBookTitle());
-            bookAuthorsTxt.setText(bookArrayList.get(position).getAuthors());
+
+            title = bookArrayList.get(position).getBookTitle();
+            bookTitleTxt.setText(title);
+
+            authors = bookArrayList.get(position).getAuthors();
+            bookAuthorsTxt.setText(authors);
 
             bookThumbnailDrawee
                     .getHierarchy()
@@ -81,7 +94,7 @@ public class Preview extends AppCompatActivity {
             ratingCountTxt.setText(bookArrayList.get(position).getRatingsCount());
 
 //            selfLink = bookArrayList.get(position).getSelfLink();
-            volumeId = bookArrayList.get(position).getVolumeId();
+//            volumeId = bookArrayList.get(position).getVolumeId();
 
         } else Log.e(TAG, "Error in retrieving position");
     }
@@ -104,18 +117,27 @@ public class Preview extends AppCompatActivity {
     private void addToBookshelf() {
 //        File file = new File(this.getFilesDir(), "my_bookshelf");
 
-        String fileName = "my_bookshelf.txt";
+        final String fileName = "my_bookshelf.json";
         FileOutputStream outputStream;
+
+        BookshelfJSON bookshelfJSON = new BookshelfJSON();
+        JSONObject jsonObject = bookshelfJSON.create(title, authors);
 
         try {
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
 //            outputStream.write(selfLink.getBytes());
-            outputStream.write(volumeId.getBytes());
+//            outputStream.write(volumeId.getBytes());
+            outputStream.write(jsonObject.toString().getBytes());
+
+//            Writer writer = new BufferedWriter(new FileWriter(fileName));
+//            writer.write(jsonObject.toString());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 
+//            writer.close();
             outputStream.close();
         } catch (Exception e) {
+            Log.d(TAG, "Error: " + e);
             e.printStackTrace();
         }
     }

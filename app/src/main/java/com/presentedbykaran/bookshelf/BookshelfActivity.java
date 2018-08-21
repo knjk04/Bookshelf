@@ -36,8 +36,7 @@ public class BookshelfActivity extends AppCompatActivity {
     private static final String TAG = BookshelfActivity.class.getSimpleName();
     private static final String FILE_NAME = "my_bookshelf.txt";
 
-    private boolean isAvailable;
-//    private String selfLink;
+    //    private String selfLink;
     private String volumeId;
     private String title;
     private List<String> authorsList;
@@ -57,7 +56,7 @@ public class BookshelfActivity extends AppCompatActivity {
 
         if (!volumeId.isEmpty()) {
              search();
-             setViews();
+//             setViews();
         }
     }
 
@@ -143,19 +142,17 @@ public class BookshelfActivity extends AppCompatActivity {
                 Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
-        isAvailable = false;
         if (networkInfo != null && networkInfo.isConnected()) {
-            isAvailable = true;
+            return true;
         } else {
             showNoInternetConnectionSnackbar();
+            return false;
         }
-        return isAvailable;
     }
 
     private void showNoInternetConnectionSnackbar() {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.constraingLayoutBookshelf),
-                R.string.no_connection, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Snackbar.make(findViewById(R.id.constraingLayoutBookshelf), R.string.no_connection,
+                Snackbar.LENGTH_LONG).show();
     }
 
     // TODO: Use a different method than getFragmentManager() deprecated
@@ -168,11 +165,16 @@ public class BookshelfActivity extends AppCompatActivity {
         JSONObject details = new JSONObject(jsonData);
         JSONObject volumeInfo = details.getJSONObject("volumeInfo");
 
+        Book book = new Book(this);
+
         if (volumeInfo.has("title")) {
-            title = volumeInfo.getString("title");
+//            title = volumeInfo.getString("title");
+            book.setBookTitle(volumeInfo.getString("title"));
             Log.d(TAG, "There is a title: " + title);
         } else {
             Log.e(TAG,"No title in parseBookData()");
+//            title = "No title found";
+            book.setBookTitle(volumeInfo.getString(""));
         }
 
         if (volumeInfo.has("authors")) {
@@ -191,28 +193,30 @@ public class BookshelfActivity extends AppCompatActivity {
         }
     }
 
-    private void setViews() {
-        if (title != null && !title.isEmpty()) {
-            titleTextView.setText(title);
-        } else {
-            Log.e(TAG, "setViews(): title is null");
-            titleTextView.setText("No title found");
-        }
-
-        String authors = "";
-        if (authorsList != null && !authorsList.isEmpty()) {
-            for (int i = 0; i < authorsList.size(); i++) {
-                if (i == 0) {
-                    authors = authorsList.get(i);
-                }
-                else {
-                    authors += ", " + authorsList.get(i);
-                }
-            }
-        } else {
-//            Log.e(TAG, "authors is null");
-            authors = "No authors found";
-        }
-        authorsTextView.setText(authors);
-    }
+//    private void setViews() {
+////        titleTextView.setText(title);
+//        if (title != null && !title.isEmpty()) {
+//            titleTextView.setText(title);
+//        }
+////        else {
+////            Log.e(TAG, "setViews(): title is null");
+////            titleTextView.setText("No title found");
+////        }
+//
+//        String authors = "";
+//        if (authorsList != null && !authorsList.isEmpty()) {
+//            for (int i = 0; i < authorsList.size(); i++) {
+//                if (i == 0) {
+//                    authors = authorsList.get(i);
+//                }
+//                else {
+//                    authors += ", " + authorsList.get(i);
+//                }
+//            }
+//        } else {
+////            Log.e(TAG, "authors is null");
+//            authors = "No authors found";
+//        }
+//        authorsTextView.setText(authors);
+//    }
 }
