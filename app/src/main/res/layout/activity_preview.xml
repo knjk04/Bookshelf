@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bookshelf.  Copyright (C). 2018.  Karan Kumar-->
+<!-- This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.-->
+<!-- This is free software, and you are welcome to redistribute it-->
+<!-- under certain conditions; type `show c' for details.-->
+<!-- This is licensed under GNU General Public License v3.0 only-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Preview">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/includePrev1"
+            layout="@layout/preview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/includePrev2"
+            layout="@layout/preview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

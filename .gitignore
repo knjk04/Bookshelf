@@ -9,3 +9,4 @@
 /captures
 .externalNativeBuild
 /app/src/main/res/raw/api_key.txt
+/app/src/main/java/com/presentedbykaran/bookshelf/API.java

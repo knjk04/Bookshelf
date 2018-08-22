@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Bookshelf.  Copyright (C). 2018.  Karan Kumar-->
+<!-- This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.-->
+<!-- This is free software, and you are welcome to redistribute it-->
+<!-- under certain conditions; type `show c' for details.-->
+<!-- This is licensed under GNU General Public License v3.0 only-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/searchableLayout"
@@ -7,8 +13,10 @@
     android:layout_height="match_parent"
     tools:context=".SearchableActivity">
 
+    <!-- No point in changing the Text of this button to String resource since this is only
+    temporary -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/searchableBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -16,8 +24,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        android:onClick="executeSearch"
-        android:text="Go"
+        android:padding="8dp"
+        android:text="See results"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

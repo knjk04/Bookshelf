@@ -1,4 +1,6 @@
-<resources> <string name="app_name">Bookshelf</string>
+<!-- Bookshelf.  Copyright (C). 2018.  Karan Kumar--><!-- This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.--><!-- This is free software, and you are welcome to redistribute it--><!-- under certain conditions; type `show c' for details.--><!-- This is licensed under GNU General Public License v3.0 only-->
+<resources>
+    <string name="app_name">Bookshelf</string>
     <string name="action_settings">Settings</string>
     <string name="search_hint">Search for a book title</string>
     <string name="alert_title">Oops! Sorry</string>
@@ -9,4 +11,7 @@
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="buttonTextMainScreen">Go</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="get_started">Welcome back</string>
+    <string name="add_to_bookshelf_btn_txt">Add to bookshelf</string>
+    <string name="book_description">Book Description</string>
 </resources>

@@ -9,8 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.presentedbykaran.bookshelf.databinding.ActivitySearchResultsBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+/** Bookshelf.  Copyright (C). 2018.  Karan Kumar
+  * This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+  * This is free software, and you are welcome to redistribute it
+  * under certain conditions; type `show c' for details.
+  *
+  * This is licensed under GNU General Public License v3.0 only
+*/
 
 public class SearchResultsActivity extends Activity {
 
@@ -22,56 +29,36 @@ public class SearchResultsActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        List<Book> bookList = (ArrayList<Book>) intent.getSerializableExtra("BookList");
+        final List<Book> bookList = (ArrayList<Book>) intent.getSerializableExtra("BookList");
 
         activitySearchResultsBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_search_results);
 
 //        bookListAdapter = new BookListAdapter(getBookData(), this);
+
+//        Fresco.initialize(this);
+
+//        ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
+//        bookListAdapter = new BookListAdapter(bookArrayList, this);
         bookListAdapter = new BookListAdapter(bookList, this);
 
         activitySearchResultsBinding.searchResultsRecycler.setAdapter(bookListAdapter);
         activitySearchResultsBinding.searchResultsRecycler.setLayoutManager(new
                 LinearLayoutManager(this));
 
+        bookListAdapter.setOnItemClickListener(new BookListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
+                bookArrayList.addAll(bookList);
+
+                Intent intent = new Intent(SearchResultsActivity.this, Preview.class);
+                Bundle args = new Bundle();
+                args.putSerializable("bookArrayList", bookArrayList);
+                intent.putExtra("bundle", args);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
     }
-
-
-//    private List<Book> getBookData() {
-//        List<Book> books = new ArrayList<>();
-//
-//
-//        Book book = new Book("Stardust", Arrays.asList("Neil Gaiman"), 4.8,
-//                null, this);
-//        books.add(book);
-//        book = new Book("The Subtle Knife", Arrays.asList("Phillip Pullman"), 4.5,
-//                null, this);
-//        books.add(book);
-//        book = new Book("Leonardo Da Vinci", Arrays.asList("Walter Isaacson"), 4.0,
-//                null, this);
-//        books.add(book);
-//        book = new Book("Mort", Arrays.asList("Terry Pratchett"), 4.0,
-//                null, this);
-//        books.add(book);
-//        book = new Book("Career of Evil", Arrays.asList("Robert Galbraith"), 4.7,
-//                null, this);
-//        books.add(book);
-//        book = new Book("Creativity, Inc.", Arrays.asList("Ed Catmull"), 4.1,
-//                null, this);
-//        books.add(book);
-//        book = new Book("The Hobbit", Arrays.asList("J.R.R Tolkien"), 4.0,
-//                null, this);
-//        books.add(book);
-//        book = new Book("The Great Gatsby", Arrays.asList("F Scott Fitzgerald"), 4.0,
-//                null, this);
-//        books.add(book);
-//        book = new Book("The Casual Vacancy", Arrays.asList("J.K Rowling"), 3.0,
-//                null, this);
-//        books.add(book);
-//        book = new Book("The Adventures of Sherlock Holmes", Arrays.asList("Sir Arthur " +
-//                "Conan Doyle"), 4.2, null, this);
-//        books.add(book);
-//
-//        return books;
-//    }
 }
