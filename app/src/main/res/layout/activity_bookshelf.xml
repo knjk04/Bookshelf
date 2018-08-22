@@ -9,22 +9,6 @@
     tools:context=".BookshelfActivity">
 
     <TextView
-        android:id="@+id/bookshelfTxt"
-        android:layout_width="272dp"
-        android:layout_height="114dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Volume ID:  "
-        android:textAlignment="viewStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <TextView
         android:id="@+id/authorsTxt"
         android:layout_width="272dp"
         android:layout_height="57dp"
@@ -36,17 +20,18 @@
         app:layout_constraintBottom_toTopOf="@+id/titleTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.802" />
 
     <TextView
         android:id="@+id/titleTxt"
         android:layout_width="271dp"
         android:layout_height="78dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="196dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Book title:"
-        app:layout_constraintBottom_toTopOf="@+id/bookshelfTxt"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />

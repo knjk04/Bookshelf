@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -21,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +54,6 @@ public class Preview extends AppCompatActivity {
     @BindView(R.id.previewAddToBookshelfBtn) Button addToBookshelfBtn;
 
     boolean haveClicked;
-//    private String selfLink;
 
     private String title;
     private String authors;
@@ -93,9 +95,6 @@ public class Preview extends AppCompatActivity {
             ratingsTxt.setText(bookArrayList.get(position).getRating());
             ratingCountTxt.setText(bookArrayList.get(position).getRatingsCount());
 
-//            selfLink = bookArrayList.get(position).getSelfLink();
-//            volumeId = bookArrayList.get(position).getVolumeId();
-
         } else Log.e(TAG, "Error in retrieving position");
     }
 
@@ -115,26 +114,23 @@ public class Preview extends AppCompatActivity {
 
     // Writes to internal storage
     private void addToBookshelf() {
-//        File file = new File(this.getFilesDir(), "my_bookshelf");
-
         final String fileName = "my_bookshelf.json";
         FileOutputStream outputStream;
 
-        BookshelfJSON bookshelfJSON = new BookshelfJSON();
-        JSONObject jsonObject = bookshelfJSON.create(title, authors);
+        List<String> jsonData = Arrays.asList(title, authors);
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        String gsonString = gson.toJson(jsonData);
 
         try {
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//            outputStream.write(selfLink.getBytes());
-//            outputStream.write(volumeId.getBytes());
-            outputStream.write(jsonObject.toString().getBytes());
-
-//            Writer writer = new BufferedWriter(new FileWriter(fileName));
-//            writer.write(jsonObject.toString());
+            outputStream.write(gsonString.getBytes());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 
-//            writer.close();
             outputStream.close();
         } catch (Exception e) {
             Log.d(TAG, "Error: " + e);
