@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +23,10 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -117,7 +120,10 @@ public class Preview extends AppCompatActivity {
         final String fileName = "my_bookshelf.json";
         FileOutputStream outputStream;
 
-        List<String> jsonData = Arrays.asList(title, authors);
+        String dateToday = getTodaysDate();
+        Log.d(TAG, "Today is: " + dateToday);
+
+        List<String> jsonData = Arrays.asList(title, authors, dateToday);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -136,5 +142,10 @@ public class Preview extends AppCompatActivity {
             Log.d(TAG, "Error: " + e);
             e.printStackTrace();
         }
+    }
+
+    private String getTodaysDate() {
+        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return "Date added: " + dateFormat.format(Calendar.getInstance().getTime());
     }
 }

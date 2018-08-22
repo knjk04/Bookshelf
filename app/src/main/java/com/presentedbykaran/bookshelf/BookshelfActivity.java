@@ -20,12 +20,9 @@ public class BookshelfActivity extends AppCompatActivity {
     private static final String TAG = BookshelfActivity.class.getSimpleName();
     private static final String FILE_NAME = "my_bookshelf.json";
 
-    //    private String selfLink;
-//    private String title;
-//    private List<String> authorsList;
-
     @BindView(R.id.titleTxt) TextView titleTextView;
     @BindView(R.id.authorsTxt) TextView authorsTextView;
+    @BindView(R.id.dateTxt) TextView dateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +53,7 @@ public class BookshelfActivity extends AppCompatActivity {
 //            Log.d(TAG, "Reached here. All is well.");
             titleTextView.setText(list.get(0));
             authorsTextView.setText(list.get(1));
+            dateTextView.setText(list.get(2));
 
         } catch (IOException e) {
             e.printStackTrace();
