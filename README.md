@@ -14,7 +14,8 @@
   ![Screenshots](/repoMedia/all-screens-quarter-res.png)
 
   Currently, you can only search for book titles. The wishlist part of the app 
-  hasn't been developed yet
+  is still under development (only possible to save the book title and authors for
+  one book right now).
   
   Min SDK version: API level 21 (Android 5.0 Lollipop)
   
