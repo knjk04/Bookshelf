@@ -60,7 +60,9 @@ public class Preview extends AppCompatActivity {
 
     private String title;
     private String authors;
-//    private String volumeId;
+    private String thumbnailURL;
+
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +74,19 @@ public class Preview extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("bundle");
         ArrayList<Book> bookArrayList = (ArrayList<Book>) args.getSerializable("bookArrayList");
         int position = intent.getIntExtra("position", -1);
+        book = bookArrayList.get(position);
 
         haveClicked = false;
 
         if (position != -1) {
             ButterKnife.bind(this);
 
-            title = bookArrayList.get(position).getBookTitle();
+//            title = bookArrayList.get(position).getBookTitle();
+            title = book.getBookTitle();
             bookTitleTxt.setText(title);
 
-            authors = bookArrayList.get(position).getAuthors();
+//            authors = bookArrayList.get(position).getAuthors();
+            authors = book.getAuthors();
             bookAuthorsTxt.setText(authors);
 
             bookThumbnailDrawee
@@ -90,13 +95,23 @@ public class Preview extends AppCompatActivity {
                         ScalingUtils.
                         ScaleType.CENTER_CROP);
 
-            bookThumbnailDrawee.setImageURI(bookArrayList.get(position).getStrImageURL());
-            bookDescriptionTxt.setText(bookArrayList.get(position).getDescription());
-            pageCountTxt.setText(bookArrayList.get(position).getPageCount());
-            publisherTxt.setText(bookArrayList.get(position).getPublisher());
-            publishedDateTxt.setText(bookArrayList.get(position).getPublishedDate());
-            ratingsTxt.setText(bookArrayList.get(position).getRating());
-            ratingCountTxt.setText(bookArrayList.get(position).getRatingsCount());
+//            thumbnailURL = bookArrayList.get(position).getStrImageURL();
+            thumbnailURL = book.getStrImageURL();
+            bookThumbnailDrawee.setImageURI(thumbnailURL);
+
+            bookDescriptionTxt.setText(book.getDescription());
+            pageCountTxt.setText(book.getPageCount());
+            publisherTxt.setText(book.getPublisher());
+            publishedDateTxt.setText(book.getPublishedDate());
+            ratingsTxt.setText(book.getRating());
+            ratingCountTxt.setText(book.getRatingsCount());
+
+//            bookDescriptionTxt.setText(bookArrayList.get(position).getDescription());
+//            pageCountTxt.setText(bookArrayList.get(position).getPageCount());
+//            publisherTxt.setText(bookArrayList.get(position).getPublisher());
+//            publishedDateTxt.setText(bookArrayList.get(position).getPublishedDate());
+//            ratingsTxt.setText(bookArrayList.get(position).getRating());
+//            ratingCountTxt.setText(bookArrayList.get(position).getRatingsCount());
 
         } else Log.e(TAG, "Error in retrieving position");
     }
@@ -123,17 +138,19 @@ public class Preview extends AppCompatActivity {
         String dateToday = getTodaysDate();
         Log.d(TAG, "Today is: " + dateToday);
 
-        List<String> jsonData = Arrays.asList(title, authors, dateToday);
+        List<String> jsonData = Arrays.asList(title, authors, dateToday, thumbnailURL);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
 
-        String gsonString = gson.toJson(jsonData);
+//        String gsonString = gson.toJson(jsonData);
+        String gsonObjectString = gson.toJson(book);
 
         try {
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-            outputStream.write(gsonString.getBytes());
+//            outputStream.write(gsonString.getBytes());
+            outputStream.write(gsonObjectString.getBytes());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 
@@ -145,7 +162,7 @@ public class Preview extends AppCompatActivity {
     }
 
     private String getTodaysDate() {
-        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return "Date added: " + dateFormat.format(Calendar.getInstance().getTime());
     }
 }
