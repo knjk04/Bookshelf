@@ -2,17 +2,20 @@ package com.presentedbykaran.bookshelf;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,8 +24,6 @@ public class BookshelfActivity extends AppCompatActivity {
 
     private static final String TAG = BookshelfActivity.class.getSimpleName();
     private static final String FILE_NAME = "my_bookshelf.json";
-
-//    private Bookshelf bookshelf;
 
     @BindView(R.id.titleTxt) TextView titleTextView;
     @BindView(R.id.authorsTxt) TextView authorsTextView;
@@ -41,28 +42,51 @@ public class BookshelfActivity extends AppCompatActivity {
     }
 
     private void openFile() {
+        String jsonString = readFromFile();
+        Log.d(TAG, "jsonString: " + jsonString);
+
         try {
-            FileInputStream fileInputStream = openFileInput(FILE_NAME);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//            JSONArray jsonArray = new JSONArray(jsonString);
+            JSONObject jsonObject = new JSONObject(jsonString);
 
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
+            authorsTextView.setText(jsonObject.getString("authors"));
+            titleTextView.setText(jsonObject.getString("bookTitle"));
+            thumbnailDrawee.setImageURI(jsonObject.getString("strImageURL"));
+            dateTextView.setText(jsonObject.getString("dateAdded"));
 
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-            String json = stringBuilder.toString();
-            Gson gson = new Gson();
-            List<String> list = gson.fromJson(json, List.class);
-            titleTextView.setText(list.get(0));
-            authorsTextView.setText(list.get(1));
-            dateTextView.setText(list.get(2));
-            thumbnailDrawee.setImageURI(list.get(3));
-
-        } catch (IOException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String readFromFile() {
+        String data = "";
+
+        try {
+            InputStream inputStream= openFileInput(FILE_NAME);
+
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String line;
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+
+                inputStream.close();
+                data = stringBuilder.toString();
+            }
+
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            Log.e(TAG, "File not found: " + e.toString());
+        } catch (IOException e) {
+//            e.printStackTrace();
+            Log.e(TAG, "Cannot read file: " + e.toString());
+        }
+
+        return data;
     }
 }

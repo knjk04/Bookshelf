@@ -42,12 +42,7 @@ public class Book implements Serializable {
     private String publishedDate = "Published Date: ";
     private String pageCount = "Number of pages: ";
     private String description;
-
-    // unique to every book, so use as an ID for saving to internal storage
-    // This means that when adding a book to a bookshelf, only the selfLink needs to be stored, not
-    // all the other info about it, since that can easily be retrieved from JSON again when needed
-//    private String selfLink;
-    private String volumeId;
+    private String dateAdded = "Date added: ";
 
 //    private SimpleDraweeView draweeView;
 
@@ -191,23 +186,6 @@ public class Book implements Serializable {
         }
     }
 
-//    public String getSelfLink() {
-//        return selfLink;
-//    }
-//
-//    public void setSelfLink(String selfLink) {
-//        this.selfLink = selfLink;
-//    }
-
-    public String getVolumeId() {
-        return volumeId;
-    }
-
-    public void setVolumeId(String volumeId) {
-        this.volumeId = volumeId;
-    }
-
-
     // --- Private methods ---
 
     // This method converts a http link to a https link
@@ -219,5 +197,10 @@ public class Book implements Serializable {
     private void changeHttpToHttps(String strImageURL) {
         this.strImageURL = strImageURL.replaceFirst("http", "https");
         Log.d(TAG, "strImageURL: " + this.strImageURL);
+    }
+
+    // Should only be called when the user adds a book to their bookshelf
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

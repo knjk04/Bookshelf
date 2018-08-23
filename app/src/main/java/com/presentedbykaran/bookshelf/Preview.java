@@ -135,10 +135,11 @@ public class Preview extends AppCompatActivity {
         final String fileName = "my_bookshelf.json";
         FileOutputStream outputStream;
 
-        String dateToday = getTodaysDate();
-        Log.d(TAG, "Today is: " + dateToday);
+//        String dateToday = getTodaysDate();
+//        Log.d(TAG, "Today is: " + dateToday);
+        book.setDateAdded(getTodaysDate());
 
-        List<String> jsonData = Arrays.asList(title, authors, dateToday, thumbnailURL);
+//        List<String> jsonData = Arrays.asList(title, authors, dateToday, thumbnailURL);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -161,6 +162,7 @@ public class Preview extends AppCompatActivity {
         }
     }
 
+    // Only to be called when a user adds a book to their bookshelf
     private String getTodaysDate() {
         java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return "Date added: " + dateFormat.format(Calendar.getInstance().getTime());

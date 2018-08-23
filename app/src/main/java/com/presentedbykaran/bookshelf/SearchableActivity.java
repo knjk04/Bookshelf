@@ -209,7 +209,7 @@ public class SearchableActivity extends AppCompatActivity {
             }
 
 //            book.setSelfLink(getJSONString(jsonBook, "selfLink"));
-            book.setVolumeId(getJSONString(jsonBook, "id"));
+//            book.setVolumeId(getJSONString(jsonBook, "id"));
 
             books[i] = book;
         }
