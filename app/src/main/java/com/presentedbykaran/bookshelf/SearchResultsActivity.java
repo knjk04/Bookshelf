@@ -52,7 +52,7 @@ public class SearchResultsActivity extends Activity {
                 ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
                 bookArrayList.addAll(bookList);
 
-                Intent intent = new Intent(SearchResultsActivity.this, Preview.class);
+                Intent intent = new Intent(SearchResultsActivity.this, PreviewActivity.class);
                 Bundle args = new Bundle();
                 args.putSerializable("bookArrayList", bookArrayList);
                 intent.putExtra("bundle", args);

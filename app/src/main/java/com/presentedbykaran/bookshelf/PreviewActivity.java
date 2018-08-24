@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +16,15 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,9 +38,9 @@ import butterknife.OnClick;
  *  This is licensed under GNU General Public License v3.0 only
  */
 
-public class Preview extends AppCompatActivity {
+public class PreviewActivity extends AppCompatActivity {
 
-    private static final String TAG = Preview.class.getSimpleName();
+    private static final String TAG = PreviewActivity.class.getSimpleName();
 
     @BindView(R.id.previewTitleTxt) TextView bookTitleTxt;
     @BindView(R.id.previewAuthorsTxt) TextView bookAuthorsTxt;
@@ -58,6 +55,7 @@ public class Preview extends AppCompatActivity {
 
     boolean haveClicked;
 
+    // TODO: Remove these variables and pass the results of the the getters directly into setText()/setImageUri()
     private String title;
     private String authors;
     private String thumbnailURL;
@@ -133,25 +131,38 @@ public class Preview extends AppCompatActivity {
     // Writes to internal storage
     private void addToBookshelf() {
         final String fileName = "my_bookshelf.json";
+
         FileOutputStream outputStream;
 
-//        String dateToday = getTodaysDate();
-//        Log.d(TAG, "Today is: " + dateToday);
         book.setDateAdded(getTodaysDate());
 
-//        List<String> jsonData = Arrays.asList(title, authors, dateToday, thumbnailURL);
-
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
+//                .setPrettyPrinting()
                 .create();
 
 //        String gsonString = gson.toJson(jsonData);
         String gsonObjectString = gson.toJson(book);
 
+//        List<Book> books = new ArrayList<>();
+//        books.add(book);
+
+        JSONArray jsonArray = new JSONArray();
+//        jsonArray.put(book);
+        jsonArray.put(gsonObjectString);
+
         try {
+//            JSONArray jsonArray = new JSONArray(gsonObjectString);
+
+//            if (fileExists(fileName)) {
+//            Log.d(TAG, "File exists");
+//                outputStream = openFileOutput(fileName, Context.MODE_APPEND);
+//            } else {
+//            Log.d(TAG, "File does not exist.");
+//                outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+//            }
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//            outputStream.write(gsonString.getBytes());
-            outputStream.write(gsonObjectString.getBytes());
+//            outputStream.write(gsonObjectString.getBytes());
+            outputStream.write(jsonArray.toString().getBytes());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 
@@ -164,7 +175,13 @@ public class Preview extends AppCompatActivity {
 
     // Only to be called when a user adds a book to their bookshelf
     private String getTodaysDate() {
-        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.text.DateFormat dateFormat = new SimpleDateFormat("MMM d yyyy",
+                Locale.getDefault());
         return "Date added: " + dateFormat.format(Calendar.getInstance().getTime());
+    }
+
+    private boolean fileExists(String fileName) {
+        File file = getBaseContext().getFileStreamPath(fileName);
+        return file.exists();
     }
 }

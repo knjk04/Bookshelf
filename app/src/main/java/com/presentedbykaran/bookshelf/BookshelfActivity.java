@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONException;
@@ -19,6 +20,14 @@ import java.io.InputStreamReader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/** Bookshelf.  Copyright (C). 2018.  Karan Kumar
+ *  This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+ *  This is free software, and you are welcome to redistribute it
+ *  under certain conditions; type `show c' for details.
+ *
+ *  This is licensed under GNU General Public License v3.0 only
+ */
 
 public class BookshelfActivity extends AppCompatActivity {
 
@@ -37,6 +46,11 @@ public class BookshelfActivity extends AppCompatActivity {
 
         Fresco.initialize(this);
         ButterKnife.bind(this);
+        thumbnailDrawee
+                .getHierarchy()
+                .setActualImageScaleType(ScalingUtils
+                        .ScaleType
+                        .CENTER_CROP);
 
         openFile();
     }
