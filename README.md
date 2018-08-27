@@ -41,7 +41,7 @@
   ```java
   public enum API {
     ;
-    public static final String key = "[your API key should go here]";
+    public static final String KEY = "[your API key should go here]";
   }
   ```
 
