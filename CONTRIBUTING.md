@@ -22,7 +22,15 @@ We have a [Trello board](https://trello.com/b/mrCyzYwZ) for stuff that needs doi
 for features. It's a public board that anyone can view, comment or upvote on. Only team members can add cards for now. We will consider inviting active contributors to the repository to become a team member on Trello.
 
 # Style guide
-Go to our [Style guide made with Slate](https://presentedbykaran.com/bookshelf-styleguide).
+Go to our [Style guide made with Slate](https://presentedbykaran.com/bookshelf-styleguide) if you're wanting to push some code.
+
+We kindly request that commit messages use the present tense.
+
+Good:
+> Add dependencies section to README
+
+Bad: 
+> Added a dependencies section to README
 
 If you would like to contribute to the Bookshelf style guide, check out the 
 [Bookshelf style guide repository on GitHub](https://github.com/knjk04/bookshelf-styleguide).
