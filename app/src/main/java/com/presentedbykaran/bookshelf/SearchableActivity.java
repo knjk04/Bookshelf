@@ -42,6 +42,8 @@ import okhttp3.Response;
  */
 
 public class SearchableActivity extends AppCompatActivity {
+/*
+*/
     private static final String TAG = SearchableActivity.class.getSimpleName();
     private BookList bookList;
     private String searchQuery;
