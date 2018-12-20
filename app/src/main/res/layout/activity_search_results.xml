@@ -9,7 +9,7 @@
     <data>
         <variable
             name="book"
-            type="com.presentedbykaran.bookshelf.Book" />
+            type="com.presentedbykaran.bookshelf.data.Book" />
     </data>
 
     <RelativeLayout

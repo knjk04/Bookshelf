@@ -1,4 +1,4 @@
-package com.presentedbykaran.bookshelf;
+package com.presentedbykaran.bookshelf.data;
 
 import android.app.Activity;
 import android.util.Log;

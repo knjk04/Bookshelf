@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.presentedbykaran.bookshelf.data.Book;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

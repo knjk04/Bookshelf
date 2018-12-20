@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.presentedbykaran.bookshelf.data.Book;
 import com.presentedbykaran.bookshelf.databinding.ActivitySearchResultsBinding;
 
 import java.util.ArrayList;

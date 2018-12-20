@@ -1,5 +1,7 @@
 package com.presentedbykaran.bookshelf;
 
+import com.presentedbykaran.bookshelf.data.Book;
+
 /**
  * Created by karan on 07/08/18.
  *

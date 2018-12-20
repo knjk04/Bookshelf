@@ -11,7 +11,7 @@
     <data>
         <variable
             name="books"
-            type="com.presentedbykaran.bookshelf.Book" />
+            type="com.presentedbykaran.bookshelf.data.Book" />
     </data>
 
     <android.support.constraint.ConstraintLayout
