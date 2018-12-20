@@ -36,8 +36,6 @@ public class SearchResultsActivity extends Activity {
 
 //        bookListAdapter = new BookListAdapter(getBookData(), this);
 
-//        Fresco.initialize(this);
-
 //        ArrayList<Book> bookArrayList = new ArrayList<>(bookList.size());
 //        bookListAdapter = new BookListAdapter(bookArrayList, this);
         bookListAdapter = new BookListAdapter(bookList, this);

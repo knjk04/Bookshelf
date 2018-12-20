@@ -1,5 +1,7 @@
 package com.presentedbykaran.bookshelf;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +46,7 @@ public class BookshelfActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookshelf);
 
-        Fresco.initialize(this);
+//        Fresco.initialize(this);
         ButterKnife.bind(this);
         thumbnailDrawee
                 .getHierarchy()

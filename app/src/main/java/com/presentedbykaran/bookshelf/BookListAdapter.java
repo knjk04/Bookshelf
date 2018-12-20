@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.presentedbykaran.bookshelf.databinding.SingleListRowBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,13 +55,11 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 //        mBookArrayList = new ArrayList<>(bookList.size());
 //        mBookArrayList.addAll(bookList);
 
-        Fresco.initialize(mContext);
     }
 
 //    public BookListAdapter(ArrayList<Book> bookList, Context mContext) {
 //        mBookArrayList = bookList;
 //        this.mContext = mContext;
-//        Fresco.initialize(mContext);
 //    }
 
 //    @NonNull
@@ -98,8 +101,34 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
         if (book.getStrImageURL() != null) {
             String sampleUrl = "https://i.imgur.com/tGbaZCY.jpg%22";
-            Uri uri = Uri.parse(book.getStrImageURL());
-            viewHolder.draweeView.setImageURI(uri);
+
+            Log.d(TAG, "image url: " + book.getStrImageURL());
+            viewHolder.draweeView.setImageURI(bookList.get(i).getStrImageURL());
+
+
+            final ImageRequest imageRequest =
+//                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(book.getStrImageURL()))
+                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(sampleUrl))
+                            .build();
+            viewHolder.draweeView.setImageRequest(imageRequest);
+
+//            Picasso.get()
+//                   .load(book.getStrImageURL())
+//                    .load(sampleUrl)
+//                   .placeholder(R.drawable.search_white_24dp)
+//                   .into(viewHolder.imageView);
+
+//            Glide.with(viewHolder.imageView)
+//                    .load(sampleUrl)
+//                    .into(viewHolder.imageView);
+
+
+
+            //viewHolder.draweeView.setImageURI(book.getStrImageURL());
+            //viewHolder.draweeView.setImageURI(sampleUrl);
+
+            //Uri uri = Uri.parse(book.getStrImageURL());
+            //viewHolder.draweeView.setImageURI(uri);
 
 //            viewHolder.draweeView.setImageURI(bookList.get(i).getStrImageURL());
 
@@ -110,35 +139,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 //            viewHolder.draweeView.setController(controller);
 
             Log.d(TAG, "Book image URL not null");
-
-
-//            Uri uri = Uri.parse(sampleUrl);
-//            Picasso.with(viewHolder.imageView.getContext())
-////                    .load(book.getStrImageURL())
-////                    .load(sampleUrl)
-//                    .load(uri)
-////                    .load("https://i.imgur.com/tGbaZCY.jpg%22")
-//                    .into(viewHolder.imageView, new com.squareup.picasso.Callback() {
-//                        @Override
-//                        public void onSuccess() {
-//                            Log.d(TAG, "Success in loading image");
-//                        }
-//
-//                        @Override
-//                        public void onError() {
-//                            Log.d(TAG, "Failure in loading image");
-//                        }
-//                    });
-
         }
-
-
-//        String urlStr = "https://books.google.com/books/content?id=F1wgqlNi8AMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
-//        Uri uri = Uri.parse(urlStr);
-//        SimpleDraweeView draweeView = findViewById(R.id.my_image_view);
-//        draweeView.setImageURI(uri);
-
-//        Picasso.get().load(uri).into(viewHolder.imageView);
     }
 
     @Override
@@ -151,7 +152,9 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
         public SingleListRowBinding singleListRowBinding;
 
-        SimpleDraweeView draweeView;
+        private final SimpleDraweeView draweeView;
+        private final ImageView imageView;
+
 //        public ImageView imageView;
 
 //        public ViewHolder(SingleListRowBinding singleRowLayoutBinding) {
@@ -166,6 +169,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
 //            Fresco.initialize(mContext);
             draweeView = view.findViewById(R.id.bookCoverDrawee);
+
+            imageView = view.findViewById(R.id.recyclerViewImage);
 
 //            imageView = view.findViewById(R.id.bookCoverImageView);
 

@@ -2,6 +2,7 @@ package com.presentedbykaran.bookshelf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -137,18 +139,20 @@ public class PreviewActivity extends AppCompatActivity {
         book.setDateAdded(getTodaysDate());
 
         Gson gson = new GsonBuilder()
-//                .setPrettyPrinting()
+                .setPrettyPrinting()
                 .create();
 
-//        String gsonString = gson.toJson(jsonData);
+        String dateToday = getTodaysDate();
+        List<String> jsonData = Arrays.asList(title, authors, dateToday, thumbnailURL);
+
+        String gsonString = gson.toJson(jsonData);
         String gsonObjectString = gson.toJson(book);
 
 //        List<Book> books = new ArrayList<>();
 //        books.add(book);
 
-        JSONArray jsonArray = new JSONArray();
-//        jsonArray.put(book);
-        jsonArray.put(gsonObjectString);
+//        JSONArray jsonArray = new JSONArray();
+//        jsonArray.put(gsonObjectString);
 
         try {
 //            JSONArray jsonArray = new JSONArray(gsonObjectString);
@@ -161,8 +165,8 @@ public class PreviewActivity extends AppCompatActivity {
 //                outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
 //            }
             outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//            outputStream.write(gsonObjectString.getBytes());
-            outputStream.write(jsonArray.toString().getBytes());
+            outputStream.write(gsonObjectString.getBytes());
+//            outputStream.write(jsonArray.toString().getBytes());
 
             Toast.makeText(this, "Saved to " + getFilesDir(), Toast.LENGTH_SHORT).show();
 
