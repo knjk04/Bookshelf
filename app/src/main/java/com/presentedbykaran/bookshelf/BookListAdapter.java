@@ -153,7 +153,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         public SingleListRowBinding singleListRowBinding;
 
         private final SimpleDraweeView draweeView;
-        private final ImageView imageView;
+//        private final ImageView imageView;
 
 //        public ImageView imageView;
 
@@ -170,7 +170,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 //            Fresco.initialize(mContext);
             draweeView = view.findViewById(R.id.bookCoverDrawee);
 
-            imageView = view.findViewById(R.id.recyclerViewImage);
+//            imageView = view.findViewById(R.id.recyclerViewImage);
 
 //            imageView = view.findViewById(R.id.bookCoverImageView);
 

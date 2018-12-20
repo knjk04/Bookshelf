@@ -27,10 +27,16 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/bookCoverDrawee"
-                android:layout_width="56dp"
-                android:layout_height="67dp"
-                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ratingCountTxt"
                 android:layout_alignTop="@+id/bookTitleTxt"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="73dp"
+                android:layout_toEndOf="@+id/bookTitleTxt"
                 android:paddingStart="8dp"
                 fresco:placeholderImage="@android:drawable/ic_menu_close_clear_cancel" />
 
