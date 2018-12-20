@@ -106,11 +106,11 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
             viewHolder.draweeView.setImageURI(bookList.get(i).getStrImageURL());
 
 
-            final ImageRequest imageRequest =
-//                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(book.getStrImageURL()))
-                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(sampleUrl))
-                            .build();
-            viewHolder.draweeView.setImageRequest(imageRequest);
+//            final ImageRequest imageRequest =
+////                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(book.getStrImageURL()))
+//                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(sampleUrl))
+//                            .build();
+//            viewHolder.draweeView.setImageRequest(imageRequest);
 
 //            Picasso.get()
 //                   .load(book.getStrImageURL())
